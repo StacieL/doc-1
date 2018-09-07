@@ -1,0 +1,1100 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Data types · Doc center 2018</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="In 4D, data are handled according to their type in two places: database fields and the 4D language."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Data types · Doc center 2018"/><meta property="og:type" content="website"/><meta property="og:url" content="https://your-docusaurus-test-site.com/index.html"/><meta property="og:description" content="In 4D, data are handled according to their type in two places: database fields and the 4D language."/><meta property="og:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/4dLogo.gif" alt="Doc center 2018"/><h2 class="headerTitleWithLogo">Doc center 2018</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/Concepts/doc1.html" target="_self">Docs</a></li><li class=""><a href="/docs/doc4.html" target="_self">page4</a></li><li class=""><a href="http://doc.4d.com/" target="_self">doc.4d.com</a></li><li class=""><a href="http://kb.4d.com/" target="_self">knowledgebase</a></li><li class=""><a href="/en/help.html" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>The 4D Language</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">The 4D Language</h3><ul><li class="navListItem"><a class="navItem" href="/docs/Concepts/doc1.html">About the 4D Language</a></li><li class="navListItem"><a class="navItem" href="/docs/Concepts/quick-tour.html">A Quick Tour</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/Concepts/data-types.html">Data types</a></li><li class="navListItem"><a class="navItem" href="/docs/Concepts/variables-arrays.html">Variables and Arrays</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Language Reference</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc3.html">This is document number 3</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Data types</h1></header><article><div><span><p>In 4D, data are handled according to their type in two places: database fields and the 4D language.</p>
+<p>Although they are usually equivalent, some data types available at the database level are not directly available in the language and are automatically converted. Conversely, some data types can only be handled through the language. The following table lists all available data types and how they are supported/declared:</p>
+<table>
+<thead>
+<tr><th>Data Types</th><th>Database support(*)</th><th>Language support</th><th>Variable declaration</th></tr>
+</thead>
+<tbody>
+<tr><td>Alpha</td><td>Yes</td><td>Converted to text</td><td>-</td></tr>
+<tr><td>Text</td><td>Yes</td><td>Yes</td><td>C_TEXT, ARRAY TEXT</td></tr>
+<tr><td>Date</td><td>Yes</td><td>Yes</td><td>C_DATE, ARRAY DATE</td></tr>
+<tr><td>Time</td><td>Yes</td><td>Yes</td><td>C_TIME, ARRAY TIME</td></tr>
+<tr><td>Boolean</td><td>Yes</td><td>Yes</td><td>C_BOOLEAN, ARRAY BOOLEAN</td></tr>
+<tr><td>Integer</td><td>Yes</td><td>Converted to longint</td><td>ARRAY INTEGER</td></tr>
+<tr><td>Longint</td><td>Yes</td><td>Yes</td><td>C_LONGINT, ARRAY LONGINT</td></tr>
+<tr><td>Longint 64 bits</td><td>Yes (SQL)</td><td>Converted to real</td><td>-</td></tr>
+<tr><td>Real</td><td>Yes</td><td>Yes</td><td>C_REAL, ARRAY REAL</td></tr>
+<tr><td>Float</td><td>Yes (SQL)</td><td>Converted to real</td><td>-</td></tr>
+<tr><td>Undefined</td><td>-</td><td>Yes</td><td>-</td></tr>
+<tr><td>Null</td><td>-</td><td>Yes</td><td>-</td></tr>
+<tr><td>Pointer</td><td>-</td><td>Yes</td><td>C_POINTER, ARRAY POINTER</td></tr>
+<tr><td>Picture</td><td>Yes</td><td>Yes</td><td>C_PICTURE, ARRAY PICTURE</td></tr>
+<tr><td>BLOB</td><td>Yes</td><td>Yes</td><td>C_BLOB, ARRAY BLOB</td></tr>
+<tr><td>Object</td><td>Yes</td><td>Yes</td><td>C_OBJECT, ARRAY OBJECT</td></tr>
+<tr><td>Collection</td><td>-</td><td>Yes</td><td>C_COLLECTION</td></tr>
+</tbody>
+</table>
+<p>(*)Note that ORDA handles database fields through objects (entities) and thus, only support data types available to these objects. For more information, see the Object data type description.</p>
+<h2><a class="anchor" aria-hidden="true" id="string"></a><a href="#string" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>String</h2>
+<p>String is a generic term that stands for:</p>
+<ul>
+<li>Text fields or variables: a Text field, variable, or expression may contain from 0 to 2 GB of text.</li>
+<li>Alphanumeric fields: an Alphanumeric field may contain from 0 to 255 characters (limit set when field is defined).</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="string-literals"></a><a href="#string-literals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>String literals</h3>
+<p>A string literal is enclosed in double, straight quotation marks (&quot;…&quot;). Here are some examples of string literals:</p>
+<pre><code class="hljs"><span class="hljs-string">"Add Records"</span>
+<span class="hljs-string">"No records found."</span>
+<span class="hljs-string">"Invoice"</span>
+</code></pre>
+<p>An empty string is specified by two quotation marks with nothing between them (&quot;&quot;).</p>
+<h3><a class="anchor" aria-hidden="true" id="string-operators"></a><a href="#string-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>String operators</h3>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Concatenation</td><td>String + String</td><td>String</td><td>&quot;abc&quot; + &quot;def&quot;</td><td>&quot;abcdef&quot;</td></tr>
+<tr><td>Repetition</td><td>String * Number</td><td>String</td><td>&quot;ab&quot; * 3</td><td>&quot;ababab&quot;</td></tr>
+<tr><td>Equality</td><td>String = String</td><td>Boolean</td><td>&quot;abc&quot; = &quot;abc&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abc&quot; = &quot;abd&quot;</td><td>False</td></tr>
+<tr><td>Inequality</td><td>String # String</td><td>Boolean</td><td>&quot;abc&quot; # &quot;abd&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abc&quot; # &quot;abc&quot;</td><td>False</td></tr>
+<tr><td>Greater than</td><td>String &gt; String</td><td>Boolean</td><td>&quot;abd&quot; &gt; &quot;abc&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abc&quot; &gt; &quot;abc&quot;</td><td>False</td></tr>
+<tr><td>Less than</td><td>String &lt; String</td><td>Boolean</td><td>&quot;abc&quot; &lt; &quot;abd&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abc&quot; &lt; &quot;abc&quot;</td><td>False</td></tr>
+<tr><td>Greater than or equal to</td><td>String &gt;= String</td><td>Boolean</td><td>&quot;abd&quot; &gt;= &quot;abc&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abc&quot; &gt;= &quot;abd&quot;</td><td>False</td></tr>
+<tr><td>Less than or equal to</td><td>String &lt;= String</td><td>Boolean</td><td>&quot;abc&quot; &lt;= &quot;abd&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;abd&quot; &lt;= &quot;abc&quot;</td><td>False</td></tr>
+<tr><td>Contains keyword</td><td>String % String</td><td>Boolean</td><td>&quot;Alpha Bravo&quot; % &quot;Bravo&quot;</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>&quot;Alpha Bravo&quot; % &quot;ravo&quot;</td><td>False</td></tr>
+<tr><td></td><td>Picture % String</td><td>Boolean</td><td>Picture_expr % &quot;Mer&quot;</td><td>True (*)</td></tr>
+</tbody>
+</table>
+<p>(*) If the keyword &quot;Mer&quot; is associated with the picture stored in the picture expression (field or variable).</p>
+<h4><a class="anchor" aria-hidden="true" id="more-about-string-comparisons"></a><a href="#more-about-string-comparisons" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>More about string comparisons</h4>
+<ul>
+<li><p>Strings are compared on a character-by-character basis (except in the case of searching by keywords, see below).</p></li>
+<li><p>When strings are compared, the case of the characters is ignored; thus, &quot;a&quot;=&quot;A&quot; returns TRUE. To test if the case of two characters is different, compare their character codes. For example, the following expression returns FALSE:</p></li>
+</ul>
+<pre><code class="hljs"><span class="hljs-built_in">Character</span> code(<span class="hljs-string">"A"</span>)=<span class="hljs-built_in">Character</span> code(<span class="hljs-string">"a"</span>) // because <span class="hljs-number">65</span> <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> equal <span class="hljs-keyword">to</span> <span class="hljs-number">97</span>
+</code></pre>
+<ul>
+<li>When strings are compared, diacritical characters are compared using the system character comparison table of your computer. For example, the following expressions return TRUE:</li>
+</ul>
+<pre><code class="hljs">     <span class="hljs-string">"n"</span>=<span class="hljs-string">"ñ"</span>
+     <span class="hljs-string">"n"</span>=<span class="hljs-string">"Ñ"</span>
+     <span class="hljs-string">"A"</span>=<span class="hljs-string">"å"</span>
+      // <span class="hljs-built_in">and</span> <span class="hljs-keyword">so</span> <span class="hljs-keyword">on</span>
+</code></pre>
+<ul>
+<li>Unlike other string comparisons, searching by keywords looks for “words” in “texts”: words are considered both individually and as a whole. The % operator always returns False if the query concerns several words or only part of a word (for example, a syllable). The “words” are character strings surrounded by “separators,” which are spaces and punctuation characters and dashes. An apostrophe, like in “Today's”, is usually considered as part of the word, but will be ignored in certain cases (see the rules below). Numbers can be searched for because they are evaluated as a whole (including decimal symbols). Other symbols (currency, temperature, and so on) will be ignored.</li>
+</ul>
+<pre><code class="hljs">     <span class="hljs-string">"Alpha Bravo Charlie"</span>%<span class="hljs-string">"Bravo"</span> // Returns <span class="hljs-literal">True</span>
+     <span class="hljs-string">"Alpha Bravo Charlie"</span>%<span class="hljs-string">"vo"</span> ` Returns <span class="hljs-literal">False</span>
+     <span class="hljs-string">"Alpha Bravo Charlie"</span>%<span class="hljs-string">"Alpha Bravo"</span> // Returns <span class="hljs-literal">False</span>
+     <span class="hljs-string">"Alpha,Bravo,Charlie"</span>%<span class="hljs-string">"Alpha"</span> // Returns <span class="hljs-literal">True</span>
+     <span class="hljs-string">"Software and Computers"</span>%<span class="hljs-string">"comput@"</span> // Returns <span class="hljs-literal">True</span>
+</code></pre>
+<blockquote>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>4D uses the ICU library for detecting keywords. For more information about the rules implemented, please refer to the following address: <a href="http://www.unicode.org/unicode/reports/tr29/#Word_Boundaries">http://www.unicode.org/unicode/reports/tr29/#Word_Boundaries</a>.</li>
+<li>In the Japanese version, instead of ICU, 4D uses Mecab by default for detecting keywords. For more information, please refer to .</li>
+</ul>
+</blockquote>
+<ul>
+<li>The wildcard character (@) can be used in any string comparison to match any number of characters. For example, the following expression is TRUE:</li>
+</ul>
+<pre><code class="hljs"><span class="hljs-string">"abcdefghij"</span>=<span class="hljs-string">"abc@"</span>
+</code></pre>
+<p>The wildcard character must be used within the second operand (the string on the right side) in order to match any number of characters. The following expression is FALSE, because the @ is considered only as a one character in the first operand:</p>
+<pre><code class="hljs">     <span class="hljs-string">"abc@"</span>=<span class="hljs-string">"abcdefghij"</span>
+</code></pre>
+<p>The wildcard means “one or more characters or nothing”. The following expressions are TRUE:</p>
+<pre><code class="hljs">     <span class="hljs-string">"abcdefghij"</span>=<span class="hljs-string">"abcdefghij@"
+     "</span>abcdefghij<span class="hljs-string">"="</span>@abcdefghij<span class="hljs-string">"
+     "</span>abcdefghij<span class="hljs-string">"="</span>abcd@efghij<span class="hljs-string">"
+     "</span>abcdefghij<span class="hljs-string">"="</span>@abcdefghij@"
+     <span class="hljs-string">"abcdefghij"</span>=<span class="hljs-string">"@abcde@fghij@"
+</span></code></pre>
+<p>On the other hand, whatever the case, a string comparison with two consecutive wildcards will always return FALSE. The following expression is FALSE:</p>
+<pre><code class="hljs"><span class="hljs-string">"abcdefghij"</span>=<span class="hljs-string">"abc@@fg"</span>
+</code></pre>
+<p>When the comparison operator is or contains a &lt; or &gt; symbol, only comparison with a single wildcard located at the end of the operand is supported:</p>
+<pre><code class="hljs">     <span class="hljs-string">"abcd"</span>&lt;=<span class="hljs-string">"abc@"</span> <span class="hljs-comment">// Valid comparison</span>
+     <span class="hljs-string">"abcd"</span>&lt;=<span class="hljs-string">"abc@ef"</span> <span class="hljs-comment">//Not a valid comparison</span>
+</code></pre>
+<p><strong>Tip:</strong> If you want to execute comparisons or queries using @ as a character (and not as a wildcard), you have two options:</p>
+<ul>
+<li>Use the (At sign) instruction. Imagine, for example, that you want to know if a string ends with the @ character.
+The following expression (if $vsValue is not empty) is always TRUE:</li>
+</ul>
+<pre><code class="hljs">(<span class="hljs-name">$vsValue≤Length</span>(<span class="hljs-name">$vsValue</span>)≥=<span class="hljs-string">"@"</span>)
+</code></pre>
+<p>The following expression will be evaluated correctly:</p>
+<pre><code class="hljs">(<span class="hljs-name">Character</span> code(<span class="hljs-name">$vsValue≤Length</span>(<span class="hljs-name">$vsValue</span>)≥)#<span class="hljs-number">64</span>)  
+</code></pre>
+<ul>
+<li>Use the &quot;Consider @ as a wildcard only when at the beginning or end of text patterns&quot; option which can be accessed using the Database Settings dialog box.
+This option lets you define how the @ character is interpreted when it is included in a character string. As such, it can influence how comparison operators are used in Query or Order By. For more information, refer to the 4D Design Reference manual.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="character-reference-symbols"></a><a href="#character-reference-symbols" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Character Reference Symbols</h3>
+<p>The character reference symbols: [[...]]</p>
+<p>These symbols are used to refer to a single character within a string. This syntax allows you to individually address the characters of a text variable, string variable, or field.</p>
+<p>If the character reference symbols appear on the left side of the assignment operator (:=), a character is assigned to the referenced position in the string. For example, if vsName is not an empty string, the following line sets the first character of vsName to uppercase:</p>
+<pre><code class="hljs">If(vsName#<span class="hljs-string">""</span>)
+    vsName<span class="hljs-string">[[1]]</span>:=Uppercase(vsName<span class="hljs-string">[[1]]</span>)
+End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>Otherwise, if the character reference symbols appear within an expression, they return the character (to which they refer) as a 1-character string. For example:</p>
+<pre><code class="hljs"><span class="hljs-comment">//The following example tests if the last character of vtText is an At sign "@"</span>
+ <span class="hljs-keyword">If</span>(vtText<span class="hljs-meta">#<span class="hljs-meta-string">""</span>)</span>
+    <span class="hljs-keyword">If</span>(Character code(Substring(vtText<span class="hljs-comment">;Length(vtText);1))=At sign)</span>
+  <span class="hljs-comment">//...</span>
+    <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+ <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+ 
+  <span class="hljs-comment">//Using the character reference syntax, you would write in a simpler manner:</span>
+ <span class="hljs-keyword">If</span>(vtText<span class="hljs-meta">#<span class="hljs-meta-string">""</span>)</span>
+    <span class="hljs-keyword">If</span>(Character code(vtText[[<span class="hljs-keyword">Length</span>(vtText)]])=At sign)
+  <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+ <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="advanced-note-about-invalid-character-reference"></a><a href="#advanced-note-about-invalid-character-reference" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Advanced note about invalid character reference</h4>
+<p>When you use the character reference symbols, you must address existing characters in the string in the same way you address existing elements of an array. For example if you address the 20th character of a string variable, this variable MUST contain at least 20 characters.</p>
+<ul>
+<li>Failing to do so, in interpreted mode, does not cause a syntax error.</li>
+<li>Failing to do so, in compiled mode (with no options), may lead to memory corruption, if, for instance, you write a character beyond the end of a string or a text.</li>
+<li>Failing to do so, in compiled mode, causes an error with the option Range Checking On. For example, executing the following code:</li>
+</ul>
+<pre><code class="hljs">//Very bad <span class="hljs-keyword">and</span> nasty thing to <span class="hljs-keyword">do</span>, boo!
+ vsAnyText:=<span class="hljs-string">""</span>
+ vsAnyText<span class="hljs-string">[[1]]</span>:=<span class="hljs-string">"A"</span>
+</code></pre>
+<p>will trigger the Runtime Error shown here:</p>
+<p><img src="/docs/assets/en/Syntax_Error.en.png" alt="alt-text"></p>
+<h4><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<p>The following project method capitalizes the first character of each word of the text received as parameter and returns the resulting capitalized text:</p>
+<pre><code class="hljs">  //Capitalize_text project method
+  //Capitalize_text ( Text ) -&gt; Text
+  //Capitalize_text ( Source text ) -&gt; Capitalized text
+ 
+ $<span class="hljs-number">0</span>:=$<span class="hljs-number">1</span>
+ $vlLen:=Length($<span class="hljs-number">0</span>)
+ If($vlLen&gt;<span class="hljs-number">0</span>)
+    $<span class="hljs-number">0</span><span class="hljs-string">[[1]]</span>:=Uppercase($<span class="hljs-number">0</span><span class="hljs-string">[[1]]</span>)
+    For($vlChar;<span class="hljs-number">1</span>;$vlLen<span class="hljs-number">-1</span>)
+       If(Position($<span class="hljs-number">0</span><span class="hljs-string">[[$vlChar]]</span>;<span class="hljs-string">" !&amp;()-{}:;&lt;&gt;?/,.=+*"</span>)&gt;<span class="hljs-number">0</span>)
+          $<span class="hljs-number">0</span><span class="hljs-string">[[$vlChar+1]]</span>:=Uppercase($<span class="hljs-number">0</span><span class="hljs-string">[[$vlChar+1]]</span>)
+       End <span class="hljs-keyword">if</span>
+    End <span class="hljs-keyword">for</span>
+ End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>For example, the line:</p>
+<pre><code class="hljs">ALERT(<span class="hljs-name">Capitalize_text</span>(<span class="hljs-string">"hello, my name is jane doe and i'm running for president!"</span>))
+</code></pre>
+<p>displays the alert shown here:</p>
+<p><img src="/docs/assets/en/jane_doe.en.png" alt="alt-text"></p>
+<h2><a class="anchor" aria-hidden="true" id="date"></a><a href="#date" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date</h2>
+<ul>
+<li>A Date field, variable or expression can be in the range of 1/1/100 to 12/31/32,767.</li>
+<li>Using the US English version of 4D, a date is ordered month/day/year.</li>
+<li>If a year is given as two digits, it is assumed to be in the 1900’s if the value is greater than or equal to 30, and the 2000’s if the value is less than 30 (this default can be changed using the command).</li>
+<li>Although the representation mode for dates by can work with dates up to the year 32 767, certain operations passing through the system impose a lower limit.</li>
+</ul>
+<p><strong>Note:</strong> In the 4D Language Reference manual, Date parameters in command descriptions are denoted as Date, except when marked otherwise.</p>
+<h3><a class="anchor" aria-hidden="true" id="date-constants"></a><a href="#date-constants" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date Constants</h3>
+<p>A date constant is enclosed by exclamation marks (!…!). Since 4D v15, a date must be structured using the ISO format (!YYYY-MM-DD!). Here are some examples of date constants:</p>
+<pre><code class="hljs">!<span class="hljs-number">1976</span><span class="hljs-number">-01</span><span class="hljs-number">-01</span>!
+!<span class="hljs-number">2004</span><span class="hljs-number">-09</span><span class="hljs-number">-29</span>!
+!<span class="hljs-number">2015</span><span class="hljs-number">-12</span><span class="hljs-number">-31</span>!
+</code></pre>
+<p>A null date is specified by <em>!00-00-00!</em>.</p>
+<p><strong>Tip:</strong> The Method Editor includes a shortcut for entering a null date. To type a null date, enter the exclamation (!) character and press Enter.</p>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>For compatibility reasons, 4D accepts two-digit years to be entered. A two-digit year is assumed to be in the 20th or 21st century based on whether it is greater or less than 30, unless this default setting has been changed using the command.</li>
+<li>If you have checked the &quot;Use regional system settings&quot; option (see Methods Page), you must use the date format defined in your system. Generally, in a US environment, dates are entered in the form month/day/year, with a slash &quot;/&quot; separating the values.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="date-operators"></a><a href="#date-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date operators</h3>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Date difference</td><td>Date – Date</td><td>Number</td><td>!1997-01-20! - !1997-01-01!</td><td>19</td></tr>
+<tr><td>Day addition</td><td>Date + Number</td><td>Date</td><td>!1997-01-20! + 9</td><td>!1997-01-29!</td></tr>
+<tr><td>Day subtraction</td><td>Date – Number</td><td>Date</td><td>!1997-01-20! - 9</td><td>!1997-01-11!</td></tr>
+<tr><td>Equality</td><td>Date = Date</td><td>Boolean</td><td>!1/1/97! =!1/1/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/20/97! =!1/1/97!</td><td>False</td></tr>
+<tr><td>Inequality</td><td>Date # Date</td><td>Boolean</td><td>!1/20/97! # !1/1/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/1/97! # !1/1/97!</td><td>False</td></tr>
+<tr><td>Greater than</td><td>Date &gt; Date</td><td>Boolean</td><td>!1/20/97! &gt; !1/1/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/1/97! &gt; !1/1/97!</td><td>False</td></tr>
+<tr><td>Less than</td><td>Date &lt; Date</td><td>Boolean</td><td>!1/1/97! &lt; !1/20/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/1/97! &lt; !1/1/97!</td><td>False</td></tr>
+<tr><td>Greater than or equal to</td><td>Date &gt;= Date</td><td>Boolean</td><td>!1/20/97! &gt;=!1/1/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/1/97!&gt;=!1/20/97!</td><td>False</td></tr>
+<tr><td>Less than or equal to</td><td>Date &lt;= Date</td><td>Boolean</td><td>!1/1/97!&lt;=!1/20/97!</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>!1/20/97!&lt;=!1/1/97!</td><td>False</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="time"></a><a href="#time" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Time</h2>
+<ul>
+<li>A Time field, variable or expression can be in the range of 00:00:00 to 596,000:00:00.</li>
+<li>Using the US English version of 4D, time is ordered hour:minute:second.</li>
+<li>Times are in 24-hour format.</li>
+<li>A time value can be treated as a number. The number returned from a time is the number of seconds that time represents. For more information, see the section Time Operators.</li>
+</ul>
+<p><strong>Note:</strong> In the 4D Language Reference manual, Time parameters in command descriptions are denoted as Time, except when marked otherwise.</p>
+<h3><a class="anchor" aria-hidden="true" id="time-constants"></a><a href="#time-constants" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Time Constants</h3>
+<p>A time constant is enclosed by question marks (?...?).</p>
+<p>In the US English version of 4D, a time constant is ordered hour:minute:second, with a colon (:) setting off each part. Times are specified in 24-hour format.</p>
+<p>Here are some examples of time constants:</p>
+<pre><code class="hljs">?00<span class="hljs-selector-pseudo">:00</span><span class="hljs-selector-pseudo">:00</span>? ` <span class="hljs-selector-tag">midnight</span>
+?09<span class="hljs-selector-pseudo">:30</span><span class="hljs-selector-pseudo">:00</span>? ` 9<span class="hljs-selector-pseudo">:30</span> <span class="hljs-selector-tag">am</span>
+?13<span class="hljs-selector-pseudo">:01</span><span class="hljs-selector-pseudo">:59</span>? ` 1 <span class="hljs-selector-tag">pm</span>, 1 <span class="hljs-selector-tag">minute</span>, <span class="hljs-selector-tag">and</span> 59 <span class="hljs-selector-tag">seconds</span>
+</code></pre>
+<p>A null time is specified by ?00:00:00?</p>
+<p><strong>Tip:</strong> The Method Editor includes a shortcut for entering a null time. To type a null time, enter the question mark (?) character and press Enter.</p>
+<h3><a class="anchor" aria-hidden="true" id="time-operators"></a><a href="#time-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Time operators</h3>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Addition</td><td>Time + Time</td><td>Time</td><td>?02:03:04? + ?01:02:03?</td><td>?03:05:07?</td></tr>
+<tr><td>Subtraction</td><td>Time – Time</td><td>Time</td><td>?02:03:04? – ?01:02:03?</td><td>?01:01:01?</td></tr>
+<tr><td>Addition</td><td>Time + Number</td><td>Number</td><td>?02:03:04? + 65</td><td>7449</td></tr>
+<tr><td>Subtraction</td><td>Time – Number</td><td>Number</td><td>?02:03:04? – 65</td><td>7319</td></tr>
+<tr><td>Multiplication</td><td>Time * Number</td><td>Number</td><td>?02:03:04? * 2</td><td>14768</td></tr>
+<tr><td>Division</td><td>Time / Number</td><td>Number</td><td>?02:03:04? / 2</td><td>3692</td></tr>
+<tr><td>Longint division</td><td>Time \ Number</td><td>Number</td><td>?02:03:04? \ 2</td><td>3692</td></tr>
+<tr><td>Modulo</td><td>Time % Time</td><td>Time</td><td>?20:10:00? % ?04:20:00?</td><td>?02:50:00?</td></tr>
+<tr><td>Modulo</td><td>Time % Number</td><td>Number</td><td>?02:03:04? % 2</td><td>0</td></tr>
+<tr><td>Equality</td><td>Time = Time</td><td>Boolean</td><td>?01:02:03? = ?01:02:03?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:03? = ?01:02:04?</td><td>False</td></tr>
+<tr><td>Inequality</td><td>Time # Time</td><td>Boolean</td><td>?01:02:03? # ?01:02:04?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:03? # ?01:02:03?</td><td>False</td></tr>
+<tr><td>Greater than</td><td>Time &gt; Time</td><td>Boolean</td><td>?01:02:04? &gt; ?01:02:03?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:03? &gt; ?01:02:03?</td><td>False</td></tr>
+<tr><td>Less than</td><td>Time &lt; Time</td><td>Boolean</td><td>?01:02:03? &lt; ?01:02:04?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:03? &lt; ?01:02:03?</td><td>False</td></tr>
+<tr><td>Greater than or equal to</td><td>Time &gt;= Time</td><td>Boolean</td><td>?01:02:03? &gt;=?01:02:03?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:03? &gt;=?01:02:04?</td><td>False</td></tr>
+<tr><td>Less than or equal to</td><td>Time &lt;= Time</td><td>Boolean</td><td>?01:02:03? &lt;=?01:02:03?</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>?01:02:04? &lt;=?01:02:03?</td><td>False</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="example-1"></a><a href="#example-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example 1</h4>
+<p>To obtain a time expression from an expression that combines a time expression with a number, use the commands Time and Time string.</p>
+<p>You can combine expressions of the time and number types using the or functions. For example:</p>
+<pre><code class="hljs">  //The following <span class="hljs-literal">line</span> assigns <span class="hljs-keyword">to</span> $vlSeconds the number <span class="hljs-keyword">of</span> seconds that will be elapsed between midnight <span class="hljs-keyword">and</span> one hour from now
+ $vlSeconds:=Current <span class="hljs-built_in">time</span>+<span class="hljs-number">3600</span>
+  //The following <span class="hljs-literal">line</span> assigns <span class="hljs-keyword">to</span> $vHSoon the <span class="hljs-built_in">time</span> it will be <span class="hljs-keyword">in</span> one hour
+ $vhSoon:=<span class="hljs-built_in">Time</span>(Current <span class="hljs-built_in">time</span>+<span class="hljs-number">3600</span>)
+</code></pre>
+<p>The second line could be written in a simpler way:</p>
+<pre><code class="hljs">  <span class="hljs-comment">// The following line assigns to $vHSoon the time it will be in one hour</span>
+ $vhSoon:=Current time+?<span class="hljs-number">01</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>?
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="example-2"></a><a href="#example-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example 2</h4>
+<p>Some situations may require you to convert a time expression into a numeric expression.
+For example, you open a document using , which returns a Document Reference (DocRef) that is formally a time expression. Later, you want to pass that DocRef to a 4D Extension routine that expects a numeric value as document reference. In such a case, use the addition with 0 (zero) to get a numeric value from the time value, but without changing its value.</p>
+<pre><code class="hljs">//<span class="hljs-keyword">Select</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">open</span> a <span class="hljs-keyword">document</span>
+ $vhDocRef:=<span class="hljs-keyword">Open</span> <span class="hljs-keyword">document</span>(<span class="hljs-string">""</span>)
+ <span class="hljs-keyword">If</span>(OK=<span class="hljs-number">1</span>)
+//Pass the DocRef <span class="hljs-keyword">time</span> expression <span class="hljs-keyword">as</span> a <span class="hljs-built_in">numeric</span> expresssion <span class="hljs-keyword">to</span> a <span class="hljs-number">4</span>D Extension routine
+    <span class="hljs-keyword">DO</span> SOMETHING SPECIAL(<span class="hljs-number">0</span>+$vhDocRef)
+ <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="example-3"></a><a href="#example-3" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example 3</h4>
+<p>The Modulo operator can be used, more specifically, to add times that take the 24-hour format into account:</p>
+<pre><code class="hljs">$t1:=?<span class="hljs-number">23</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>? <span class="hljs-comment">// It is 23:00 p.m.</span>
+  <span class="hljs-comment">// We want to add 2 and a half hours</span>
+$t2:=$t1 +?<span class="hljs-number">02</span>:<span class="hljs-number">30</span>:<span class="hljs-number">00</span>? <span class="hljs-comment">// With a simple addition, $t2 is ?25:30:00?</span>
+$t2:=($t1 +?<span class="hljs-number">02</span>:<span class="hljs-number">30</span>:<span class="hljs-number">00</span>?)%?<span class="hljs-number">24</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>? <span class="hljs-comment">// $t2 is ?01:30:00? and it is 1:30 a.m. the next morning</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="numbers-real-integer"></a><a href="#numbers-real-integer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Numbers (Real, Integer)</h2>
+<p>Number is a generic term that stands for:</p>
+<ul>
+<li>Real field, variable or expression. The range for the Real data type is ±1.7e±308 (13 significant digits).</li>
+<li>Long Integer field, variable or expression. The range for the Long Integer data type (4-byte Integer) is -2^31..(2^31)-1.</li>
+<li>Integer field, array or expression. The range for the Integer data type (2-byte Integer) is -32,768..32,767 (2^15..(2^15)-1).</li>
+</ul>
+<p><strong>Note:</strong> Integer field values are automatically converted in Long integers when used in the 4D Language.</p>
+<p>You can assign any Number data type to another; 4D does the conversion, truncating or rounding if necessary. However, when values are out of range, the conversion will not return a valid value. You can mix Number data types in expressions.</p>
+<p><strong>Note:</strong> In the 4D Language Reference manual, no matter the actual data type, the Real, Integer, and Long Integer parameters in command descriptions are denoted as number, except when marked otherwise.</p>
+<h3><a class="anchor" aria-hidden="true" id="number-constants"></a><a href="#number-constants" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Number Constants</h3>
+<p>A numeric constant is written as a real number. Here are some examples of numeric constants:</p>
+<pre><code class="hljs"><span class="hljs-number">27</span>
+<span class="hljs-number">123.76</span>
+<span class="hljs-number">0.0076</span>
+</code></pre>
+<p><strong>Note:</strong> Since 4D v15, the default decimal separator is a period (.), regardless of the system language. If you have checked the &quot;Use regional system settings&quot; option (see Methods Page), you must use the separator defined in your system.</p>
+<p>Negative numbers are specified with the minus sign (-). For example:</p>
+<pre><code class="hljs">-<span class="ruby"><span class="hljs-number">27</span>
+</span>-<span class="ruby"><span class="hljs-number">123.76</span>
+</span>-<span class="ruby"><span class="hljs-number">0</span>.<span class="hljs-number">0076</span>
+</span></code></pre>
+<h3><a class="anchor" aria-hidden="true" id="number-operators"></a><a href="#number-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Number operators</h3>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Addition</td><td>Number + Number</td><td>Number</td><td>2 + 3</td><td>5</td></tr>
+<tr><td>Subtraction</td><td>Number - Number</td><td>Number</td><td>3 – 2</td><td>1</td></tr>
+<tr><td>Multiplication</td><td>Number * Number</td><td>Number</td><td>5 * 2</td><td>10</td></tr>
+<tr><td>Division</td><td>Number /Number</td><td>Number</td><td>5 / 2</td><td>2.5</td></tr>
+<tr><td>Longint division</td><td>Number \ Number</td><td>Number</td><td>5 \ 2</td><td>2</td></tr>
+<tr><td>Modulo</td><td>Number % Number</td><td>Number</td><td>5 % 2</td><td>1</td></tr>
+<tr><td>Exponentiation</td><td>Number ^ Number</td><td>Number</td><td>2 ^ 3</td><td>8</td></tr>
+<tr><td>Equality</td><td>Number = Number</td><td>Boolean</td><td>10 = 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 = 11</td><td>False</td></tr>
+<tr><td>Inequality</td><td>Number # Number</td><td>Boolean</td><td>10 #11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 # 10</td><td>False</td></tr>
+<tr><td>Greater than</td><td>Number &gt; Number</td><td>Boolean</td><td>11 &gt; 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 &gt; 11</td><td>False</td></tr>
+<tr><td>Less than</td><td>Number &lt; Number</td><td>Boolean</td><td>10 &lt; 11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>11 &lt; 10</td><td>False</td></tr>
+<tr><td>Greater than or equal to</td><td>Number &gt;= Number</td><td>Boolean</td><td>11 &gt;= 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 &gt;= 11</td><td>False</td></tr>
+<tr><td>Less than or equal to</td><td>Number &lt;= Number</td><td>Boolean</td><td>10 &lt;= 11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>11 &lt;= 10</td><td>False</td></tr>
+</tbody>
+</table>
+<p>The modulo operator % divides the first number by the second number and returns a whole number remainder. Here are some examples:</p>
+<ul>
+<li>10 % 2 returns 0 because 10 is evenly divided by 2.</li>
+<li>10 % 3 returns 1 because the remainder is 1.</li>
+<li>10.5 % 2 returns 0 because the remainder is not a whole number.</li>
+</ul>
+<p><strong>WARNING:</strong></p>
+<ul>
+<li>The modulo operator % returns significant values with numbers that are in the Long Integer range (from minus 2^31 to 2^31 minus one). To calculate the modulo with numbers outside of this range, use the command.</li>
+<li>The longint division operator \ returns significant values with integer numbers only.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="precedence"></a><a href="#precedence" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Precedence</h4>
+<p>The order in which an expression is evaluated is called precedence. 4D has a strict left-to-right precedence, in which algebraic order is not observed. For example:</p>
+<pre><code class="hljs"> <span class="hljs-number">3</span>+<span class="hljs-number">4</span>*<span class="hljs-number">5</span>
+</code></pre>
+<p>returns 35, because the expression is evaluated as 3 + 4, yielding 7, which is then multiplied by 5, with the final result of 35.</p>
+<p>To override the left-to-right precedence, you MUST use parentheses. For example:</p>
+<pre><code class="hljs"> <span class="hljs-number">3</span>+(<span class="hljs-number">4</span>*<span class="hljs-number">5</span>)
+</code></pre>
+<p>returns 23 because the expression (4 * 5) is evaluated first, because of the parentheses. The result is 20, which is then added to 3 for the final result of 23.</p>
+<p>Parentheses can be nested inside other sets of parentheses. Be sure that each left parenthesis has a matching right parenthesis to ensure proper evaluation of expressions. Lack of, or incorrect use of parentheses can cause unexpected results or invalid expressions. Furthermore, if you intend to compile your applications, you must have matching parentheses—the compiler detects a missing parenthesis as a syntax error.</p>
+<h2><a class="anchor" aria-hidden="true" id="boolean"></a><a href="#boolean" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Boolean</h2>
+<p>A boolean field, variable or expression can be either TRUE or FALSE.</p>
+<h3><a class="anchor" aria-hidden="true" id="boolean-functions"></a><a href="#boolean-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Boolean functions</h3>
+<p>4D provides the Boolean functions <strong>True</strong>, <strong>False</strong>, and <strong>Not</strong> in the dedicated <strong>Boolean</strong> theme. For more information, see the descriptions of these commands</p>
+<h4><a class="anchor" aria-hidden="true" id="example-4"></a><a href="#example-4" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h4>
+<p>This example sets a Boolean variable based on the value of a button. It returns True in myBoolean if the myButton button was clicked and False if the button was not clicked. When a button is clicked, the button variable is set to 1.</p>
+<pre><code class="hljs"> <span class="hljs-keyword">If</span>(<span class="hljs-attribute">myButton</span>=1) ` <span class="hljs-keyword">If</span> the button was clicked
+    myBoolean:=<span class="hljs-literal">True</span> ` myBoolean is <span class="hljs-builtin-name">set</span> <span class="hljs-keyword">to</span> <span class="hljs-literal">True</span>
+ <span class="hljs-keyword">Else</span> ` <span class="hljs-keyword">If</span> the button was <span class="hljs-keyword">not</span> clicked,
+    myBoolean:=<span class="hljs-literal">False</span> ` myBoolean is <span class="hljs-builtin-name">set</span> <span class="hljs-keyword">to</span> <span class="hljs-literal">False</span>
+ End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>The previous example can be simplified into one line.</p>
+<pre><code class="hljs">myBoolean:=(myButton=1)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="logical-operators"></a><a href="#logical-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Logical Operators</h3>
+<p>4D supports two logical operators that work on Boolean expressions: conjunction (AND) and inclusive disjunction (OR). A logical AND returns TRUE if both expressions are TRUE. A logical OR returns TRUE if at least one of the expressions is TRUE. The following table shows the logical operators:</p>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>AND</td><td>Boolean &amp; Boolean</td><td>Boolean</td><td>(&quot;A&quot; = &quot;A&quot;) &amp; (15 # 3)</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>(&quot;A&quot; = &quot;B&quot;) &amp; (15 # 3)</td><td>False</td></tr>
+<tr><td></td><td></td><td></td><td>(&quot;A&quot; = &quot;B&quot;) &amp; (15 = 3)</td><td>False</td></tr>
+<tr><td>OR</td><td>Boolean  | Boolean</td><td>Boolean</td><td>(&quot;A&quot; = &quot;A&quot;) | (15 # 3)</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>(&quot;A&quot; = &quot;B&quot;) |  (15 # 3)</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>(&quot;A&quot; = &quot;B&quot;) |  (15 = 3)</td><td>False</td></tr>
+</tbody>
+</table>
+<p>The following is the truth table for the AND logical operator:</p>
+<table>
+<thead>
+<tr><th>Expr1</th><th>Expr2</th><th>Expr1 &amp; Expr2</th></tr>
+</thead>
+<tbody>
+<tr><td>True</td><td>True</td><td>True</td></tr>
+<tr><td>True</td><td>False</td><td>False</td></tr>
+<tr><td>False</td><td>True</td><td>False</td></tr>
+<tr><td>False</td><td>False</td><td>False</td></tr>
+</tbody>
+</table>
+<p>The following is the truth table for the OR logical operator:</p>
+<table>
+<thead>
+<tr><th>Expr1</th><th>Expr2</th><th>Expr1 | Expr2</th></tr>
+</thead>
+<tbody>
+<tr><td>True</td><td>True</td><td>True</td></tr>
+<tr><td>True</td><td>False</td><td>True</td></tr>
+<tr><td>False</td><td>True</td><td>True</td></tr>
+<tr><td>False</td><td>False</td><td>False</td></tr>
+</tbody>
+</table>
+<p><strong>Tip:</strong> If you need to calculate the exclusive disjunction between Expr1 and Expr2, evaluate:</p>
+<pre><code class="hljs"> (<span class="hljs-name">Expr1</span>|Expr2) &amp; Not(<span class="hljs-name">Expr1</span> &amp; Expr2)  
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="null-and-undefined"></a><a href="#null-and-undefined" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Null and Undefined</h2>
+<h3><a class="anchor" aria-hidden="true" id="null"></a><a href="#null" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Null</h3>
+<p>Null is a special data type with only one possible value: <strong>null</strong>. This value is returned by an expression that does not contain any value.</p>
+<p>From the 4D database point of view, a null value expresses the fact that the data value is unknown. It does NOT mean that the value is blank, or empty (&quot;&quot; for a string, or 0 for a longint are blank values). In the 4D database, null values in fields (except for Object field attributes) are handled by the SQL engine only. A specific field option allows you to configure how the database should handle this value (<strong>Map NULL values to blank values</strong>) and you can set or read the null values using the <strong>SET FIELD VALUE NULL</strong> and <strong>Is field value Null</strong> commands.</p>
+<p>In the 4D language and for object field attributes, null values are managed through the <strong>Null</strong> function. This function can be used with the following expressions for setting or comparing the null value:</p>
+<ul>
+<li>object attributes</li>
+<li>collection elements</li>
+<li>variables of the object, collection, pointer, or picture type.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="undefined"></a><a href="#undefined" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Undefined</h3>
+<p>Undefined is not actually a data type. It denotes a variable that has not yet been defined. A function (a project method that returns a result) can return an undefined value if, within the method, the function result ($0) is assigned an undefined expression (an expression calculated with at least one undefined variable). A field cannot be undefined (the <strong>Undefined</strong> command always returns False for a field).</p>
+<h3><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<p>Here are the different results of the <strong>Undefined</strong> command as well as the <strong>Null</strong> command with object properties, depending on the context:</p>
+<pre><code class="hljs">C_OBJECT(vEmp)
+vEmp:=<span class="hljs-literal">New</span> object
+vEmp.name:=<span class="hljs-string">"Smith"</span>
+vEmp.children:=<span class="hljs-built_in">Null</span>
+ 
+$undefined:=<span class="hljs-built_in">Null</span> <span class="hljs-literal">and</span> Undefined(vEmp.name) <span class="hljs-comment">// False</span>
+$null:=(vEmp.name=<span class="hljs-built_in">Null</span>) <span class="hljs-comment">//False</span>
+ 
+$undefined:=<span class="hljs-built_in">Null</span> <span class="hljs-literal">and</span> Undefined(vEmp.children) <span class="hljs-comment">// False</span>
+$null:=(vEmp.children=<span class="hljs-built_in">Null</span>) <span class="hljs-comment">//True</span>
+ 
+$undefined:=<span class="hljs-built_in">Null</span> <span class="hljs-literal">and</span> Undefined(vEmp.<span class="hljs-keyword">parent</span>) <span class="hljs-comment">// True</span>
+$null:=(vEmp.<span class="hljs-keyword">parent</span>=<span class="hljs-built_in">Null</span>) <span class="hljs-comment">//True</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="pointer"></a><a href="#pointer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointer</h2>
+<p>A Pointer variable or expression is a reference to another variable (including arrays and array elements), table, field, or object. There is no field of type Pointer.</p>
+<p>Pointers provide an advanced way (in programming) to refer to data. When you use the language, you access various objects—in particular, tables, fields, variables, objects, and arrays—by simply using their names. However, it is often useful to refer to these elements and access them without knowing their names. This is what pointers let you do.</p>
+<p>The concept behind pointers is not that uncommon in everyday life. You often refer to something without knowing its exact identity. For example, you might say to a friend, “Let’s go for a ride in your car” instead of “Let’s go for a ride in the car with license plate 123ABD.” In this case, you are referencing the car with license plate 123ABD by using the phrase “your car.” The phrase “car with license plate 123ABD” is like the name of an object, and using the phrase “your car” is like using a pointer to reference the object.</p>
+<p>Being able to refer to something without knowing its exact identity is very useful. In fact, your friend could get a new car, and the phrase “your car” would still be accurate—it would still be a car and you could still take a ride in it. Pointers work the same way. For example, a pointer could at one time refer to a numeric field called Age, and later refer to a numeric variable called Old Age. In both cases, the pointer references numeric data that could be used in a calculation.</p>
+<p>You can use pointers to reference tables, fields, variables, arrays, array elements, and objects. The following table gives an example of each data type:</p>
+<table>
+<thead>
+<tr><th>Type</th><th>To Reference</th><th>To Use</th><th>To Assign</th></tr>
+</thead>
+<tbody>
+<tr><td>Table</td><td>vpTable:=-&gt;[Table]</td><td>DEFAULT TABLE(vpTable-&gt;)</td><td>n/a</td></tr>
+<tr><td>Field</td><td>vpField:=-&gt;[Table]Field</td><td>ALERT(vpField-&gt;)</td><td>vpField-&gt;:=&quot;John&quot;</td></tr>
+<tr><td>Variable</td><td>vpVar:=-&gt;Variable</td><td>ALERT(vpVar-&gt;)</td><td>vpVar-&gt;:=&quot;John&quot;</td></tr>
+<tr><td>Array</td><td>vpArr:=-&gt;Array</td><td>SORT ARRAY(vpArr-&gt;;&gt;)</td><td>COPY ARRAY (Arr;vpArr-&gt;)</td></tr>
+<tr><td>Array element</td><td>vpElem:=-&gt;Array{1}</td><td>ALERT (vpElem-&gt;)</td><td>vpElem-&gt;:=&quot;John&quot;</td></tr>
+<tr><td>Object</td><td>vpObj:=-&gt;myObject</td><td>ALERT (vpObj-&gt;myProp)</td><td>vpObj-&gt;myProp:=&quot;John&quot;</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="using-a-pointer-basic-example"></a><a href="#using-a-pointer-basic-example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using a pointer: Basic example</h3>
+<p>It is easiest to explain the use of pointers through an example. This example shows how to access a variable through a pointer. We start by creating a variable:</p>
+<pre><code class="hljs">MyVar:=<span class="hljs-string">"Hello"</span>
+</code></pre>
+<p>MyVar is now a variable containing the string “Hello.” We can now create a pointer to MyVar:</p>
+<pre><code class="hljs">MyPointer:=-&gt;MyVar
+</code></pre>
+<p>The -&gt; symbol means “get a pointer to.” This symbol is formed by a dash followed by a “greater than” sign. In this case, it gets the pointer that references or “points to” MyVar. This pointer is assigned to MyPointer with the assignment operator.</p>
+<p>MyPointer is now a variable that contains a pointer to MyVar. MyPointer does not contain “Hello”, which is the value in MyVar, but you can use MyPointer to get this value. The following expression returns the value in MyVar:</p>
+<pre><code class="hljs"><span class="hljs-meta">MyPointer-&gt;</span><span class="bash"></span>
+</code></pre>
+<p>In this case, it returns the string “Hello”. The -&gt; symbol, when it follows a pointer, references the object pointed to. This is called dereferencing.</p>
+<p>It is important to understand that you can use a pointer followed by the -&gt; symbol anywhere that you could have used the object that the pointer points to. This means that you could use the expression MyPointer-&gt; anywhere that you could use the original MyVar variable.</p>
+<p>For example, the following line displays an alert box with the word Hello in it:</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">ALERT</span><span class="hljs-params">(MyPointer-&gt;)</span></span>
+</code></pre>
+<p>You can also use MyPointer to change the data in MyVar. For example, the following statement stores the string &quot;Goodbye&quot; in the variable MyVar:</p>
+<pre><code class="hljs"><span class="hljs-meta">MyPointer-&gt;</span><span class="bash">:=<span class="hljs-string">"Goodbye"</span></span>
+</code></pre>
+<p>If you examine the two uses of the expression MyPointer-&gt;, you will see that it acts just as if you had used MyVar instead. In summary, the following two lines perform the same action—both display an alert box containing the current value in the variable MyVar:</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">ALERT</span><span class="hljs-params">(MyPointer-&gt;)</span></span>
+<span class="hljs-function"><span class="hljs-title">ALERT</span><span class="hljs-params">(MyVar)</span></span>
+</code></pre>
+<p>The following two lines perform the same action— both assign the string &quot;Goodbye&quot; to MyVar:</p>
+<pre><code class="hljs">MyPointer-&gt;:=<span class="hljs-string">"Goodbye"</span>
+MyVar:=<span class="hljs-string">"Goodbye"</span>
+</code></pre>
+<p>For more examples of use of pointers, please refer to the <a href="pointers.md">Pointers page</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="pointer-operators"></a><a href="#pointer-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointer operators</h3>
+<p>With:</p>
+<pre><code class="hljs">  ` vPtrA <span class="hljs-keyword">and</span> vPtrB point <span class="hljs-keyword">to</span> the same <span class="hljs-keyword">object</span>
+ vPtrA:=-&gt;anObject
+ vPtrB:=-&gt;anObject
+  ` vPtrC points <span class="hljs-keyword">to</span> another <span class="hljs-keyword">object</span>
+ vPtrC:=-&gt;anotherObject
+</code></pre>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Equality</td><td>Pointer = Pointer</td><td>Boolean</td><td>vPtrA = vPtrB</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>vPtrA = vPtrC</td><td>False</td></tr>
+<tr><td>Inequality</td><td>Pointer # Pointer</td><td>Boolean</td><td>vPtrA # vPtrC</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>vPtrA # vPtrB</td><td>False</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="picture"></a><a href="#picture" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Picture</h2>
+<p>A Picture field, variable or expression can be any Windows or Macintosh picture. In general, this includes any picture that can be put on the pasteboard or read from the disk using 4D or Plug-In commands.</p>
+<h3><a class="anchor" aria-hidden="true" id="native-formats-supported"></a><a href="#native-formats-supported" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Native Formats Supported</h3>
+<p>4D integrates native management of picture formats. This means that pictures will be displayed and stored in their original format, without any interpretation in 4D. The specific features of the different formats (shading, transparent areas, etc.) will be retained when they are copied and pasted, and will be displayed without alteration. This native support is valid for all pictures stored in 4D: library pictures, pictures pasted into forms in Design mode, pictures pasted into fields or variables in Application mode, etc.</p>
+<p>4D uses native APIs to encode and decode pictures (fields and variables) under both Windows and Mac OS. These implementations provide access to numerous native forms, including the RAW format, currently used by digital cameras.</p>
+<ul>
+<li>Under Windows, 4D uses WIC (Windows Imaging Component). WIC natively supports the following formats: BMP, PNG, ICO (decoding only), JPEG, GIF, TIFF and WDP (Microsoft Windows Digital Photo).    It is possible to use additional formats such as JPEG-2000 by installing third-party WIC codecs.</li>
+<li>Under macOS, 4D uses ImageIO. All the available ImageIO codecs are therefore natively supported for decoding (reading) as well as encoding (writing):</li>
+</ul>
+<table>
+<thead>
+<tr><th>Decoding</th><th>Encoding</th></tr>
+</thead>
+<tbody>
+<tr><td>public.jpeg</td><td>public.jpeg</td></tr>
+<tr><td>com.compuserve.gif</td><td>com.compuserve.gif</td></tr>
+<tr><td>public.png</td><td>public.png</td></tr>
+<tr><td>public.jpeg-2000</td><td>public.jpeg-2000</td></tr>
+<tr><td>com.nikon.raw-image</td><td>public.tiff</td></tr>
+<tr><td>com.pentax.raw-image</td><td>com.adobe.photoshop.image</td></tr>
+<tr><td>com.sony.arw-raw-image</td><td>com.adobe.pdf</td></tr>
+<tr><td>com.adobe.raw-image</td><td>com.microsoft.bmp</td></tr>
+<tr><td>public.tiff com.canon.crw-raw-image</td><td>com.truevision.tga-image</td></tr>
+<tr><td>com.canon.cr2-raw-image</td><td>com.sgi.sgi-image</td></tr>
+<tr><td>com.canon.tif-raw-image</td><td>com.apple.pict (deprecated)</td></tr>
+<tr><td>com.sony.raw.image</td><td>com.ilm.openexr-image</td></tr>
+<tr><td>com.olympus.raw-image</td></tr>
+<tr><td>com.konicaminolta.raw-image</td></tr>
+<tr><td>com.panasonic.raw-image</td></tr>
+<tr><td>com.fuji.raw-image</td></tr>
+<tr><td>com.adobe.photoshop-image</td></tr>
+<tr><td>com.adobe.illustrator.ai-image</td></tr>
+<tr><td>com.adobe.pdf</td></tr>
+<tr><td>com.microsoft.ico</td></tr>
+<tr><td>com.microsoft.bmp</td></tr>
+<tr><td>com.truevision.tga-image</td></tr>
+<tr><td>com.sgi.sgi-image</td></tr>
+<tr><td>com.apple.quicktime-image (deprecated)</td></tr>
+<tr><td>com.apple.icns</td></tr>
+<tr><td>com.apple.pict (deprecated)</td></tr>
+<tr><td>com.apple.macpaint-image</td></tr>
+<tr><td>com.kodak.flashpix-image</td></tr>
+<tr><td>public.xbitmap-image</td></tr>
+<tr><td>com.ilm.openexr-image</td></tr>
+<tr><td>public.radiance</td></tr>
+</tbody>
+</table>
+<p>Under Windows as under macOS, the formats supported vary according to the operating system and the custom codecs that are installed on the machines. To find out which codecs are available, you must use the <strong>PICTURE CODE LIST</strong> command.</p>
+<p><strong>Note:</strong> WIC and ImageIO permit the use of metadata in pictures. Two commands, <strong>SET PICTURE METADATA</strong> and <strong>GET PICTURE METADATA</strong>, let you benefit from metadata in your developments.</p>
+<h4><a class="anchor" aria-hidden="true" id="picture-codec-ids"></a><a href="#picture-codec-ids" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Picture Codec IDs</h4>
+<p>Picture formats recognized by 4D are returned by the <strong>PICTURE CODE LIST</strong> command as picture Codec IDs. They can be returned in the following forms:</p>
+<ul>
+<li>As an extension (for example “.gif”)</li>
+<li>As a Mime type (for example “image/jpeg”)</li>
+</ul>
+<p>The form returned for each format will depend on the way the Codec is recorded at the operating system level.
+Most of the 4D picture management commands can receive a Codec ID as a parameter. It is therefore imperative to use the system ID returned by the <strong>PICTURE CODE LIST</strong> command.</p>
+<h4><a class="anchor" aria-hidden="true" id="unavailable-picture-format"></a><a href="#unavailable-picture-format" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Unavailable picture format</h4>
+<p>A specific icon is displayed for pictures saved in a format that is not available on the machine. The extension of the missing format is shown at the bottom of the icon. The icon is automatically used wherever the picture is meant to be displayed:</p>
+<p><img src="/docs/assets/en/missingpict.en.png" alt=""></p>
+<p>This icon indicates that the picture cannot be displayed or manipulated locally -- but it can be saved without alteration so that it can be displayed on other machines. This is the case, for instance, for PDF pictures on Windows, or for pictures based on PICT displayed on a 64-bit 4D Server under macOS.</p>
+<h4><a class="anchor" aria-hidden="true" id="activation-of-quicktime-compatibility"></a><a href="#activation-of-quicktime-compatibility" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activation of QuickTime (compatibility)</h4>
+<p>By default, the picture codecs related to QuickTime are no longer supported in 4D beginning with v14.</p>
+<p>For compatibility reasons, you can reactivate QuickTime in your application by means of the <strong>QuickTime support</strong> option of the command. However, we no longer recommend using QuickTime codecs.</p>
+<p><strong>Note:</strong> The QuickTime reactivation option is ignored in 64-bit versions of 4D Developer Edition (no QuickTime support).</p>
+<h3><a class="anchor" aria-hidden="true" id="picture-operators"></a><a href="#picture-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Picture Operators</h3>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td>Horizontal concatenation</td><td>Pict1 + Pict2</td><td>Picture</td><td>Add Pict2 to the right of Pict1</td></tr>
+<tr><td>Vertical concatenation</td><td>Pict1 / Pict2</td><td>Picture</td><td>Add Pict2 to the bottom of Pict1</td></tr>
+<tr><td>Exclusive superimposition</td><td>Pict1 &amp; Pict2</td><td>Picture</td><td>Superimposes Pict2 on top of Pict1 (Pict2 in foreground). Produces the same result as <strong>COMBINE PICTURES</strong>(pict3;pict1;Superimposition;pict2)</td></tr>
+<tr><td>Inclusive superimposition</td><td>Pict1 | Pict2</td><td>Picture</td><td>Superimposes Pict2 on Pict1 and returns resulting mask if both pictures are the same size. Produces the same result as $equal:=<strong>Equal pictures</strong>(Pict1;Pict2;Pict3)</td></tr>
+<tr><td>Horizontal move</td><td>Picture + Number</td><td>Picture</td><td>Move Picture horizontally Number pixels</td></tr>
+<tr><td>Vertical move</td><td>Picture / Number</td><td>Picture</td><td>Move Picture vertically Number pixels</td></tr>
+<tr><td>Resizing</td><td>Picture * Number</td><td>Picture</td><td>Resize Picture by Number ratio</td></tr>
+<tr><td>Horizontal scaling</td><td>Picture *+ Number</td><td>Picture</td><td>Resize Picture horizontally by Number ratio</td></tr>
+<tr><td>Vertical scaling</td><td>Picture */ Number</td><td>Picture</td><td>Resize Picture vertically by Number ratio</td></tr>
+</tbody>
+</table>
+<p><strong>Notes :</strong></p>
+<ul>
+<li>In order to use the | operator, Pict1 and Pict2 must have exactly the same dimension. If both pictures are a different size, the operation Pict1 | Pict2 produces a blank picture.</li>
+<li>The <strong>COMBINE PICTURES</strong> command can be used to superimpose pictures while keeping the characteristics of each source picture in the resulting picture.</li>
+<li>The picture operators return vectorial pictures if the two source pictures are vectorial. Remember, however, that pictures printed by the display format On Background are printed bitmapped.</li>
+<li>Additional operations can be performed on pictures using the <strong>TRANSFORM PICTURE</strong> command.</li>
+<li>There is no comparison operators on pictures, however 4D proposes the <strong>Equal picture</strong> command to compare two pictures.</li>
+<li>4D lets you retrieve the local coordinates of the mouse in a picture field or variable in case of a click or a hovering, even if a scroll or zoom has been applied to the picture. This mechanism, similar to that of a picture map, can be used, for example, to handle scrollable button bars or the interface of cartography software.
+The coordinates are returned in the <em>MouseX</em> and <em>MouseY</em> <strong>System Variables</strong>. The coordinates are expressed in pixels with respect to the top left corner of the picture (0,0). If the mouse is outside of the picture coordinates system, -1 is returned in <em>MouseX</em> and <em>MouseY</em>. You can get the value of these variables as part of the <strong>On Clicked</strong>, <strong>On Double Clicked</strong>, <strong>On Mouse up</strong>, <strong>On Mouse Enter</strong>, or <strong>On Mouse Move</strong> form events.</li>
+</ul>
+<h4><a class="anchor" aria-hidden="true" id="examples-1"></a><a href="#examples-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h4>
+<p>In the following examples, all of the pictures are shown using the display format <strong>On Background</strong>.</p>
+<p>Here is the picture circle:
+<img src="../assets/en/Circle.en.png" alt=""></p>
+<p>Here is the picture rectangle:
+<img src="../assets/en/rectangle.en.png" alt=""></p>
+<p>In the following examples, each expression is followed by its graphical representation.</p>
+<p>Horizontal concatenation</p>
+<pre><code class="hljs"> circle+rectangle ` Place <span class="hljs-keyword">the</span> rectangle <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-literal">right</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> circle
+ rectangle+circle ` Place <span class="hljs-keyword">the</span> circle <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-literal">right</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> rectangle
+</code></pre>
+<p><img src="../assets/en/concatHor.en.png" alt="">
+<img src="../assets/en/concatHor2.en.png" alt=""></p>
+<p>Vertical concatenation</p>
+<pre><code class="hljs"> <span class="hljs-built_in">circle</span>/<span class="hljs-built_in">rectangle</span> ` Place the <span class="hljs-built_in">rectangle</span> under the <span class="hljs-built_in">circle</span>
+ <span class="hljs-built_in">rectangle</span>/<span class="hljs-built_in">circle</span> ` Place the <span class="hljs-built_in">circle</span> under the <span class="hljs-built_in">rectangle</span>
+</code></pre>
+<p><img src="../assets/en/concatVer.en.png" alt="">
+<img src="../assets/en/concatVer2.en.png" alt=""></p>
+<p>Exclusive superimposition</p>
+<pre><code class="hljs">Pict3:=Pict1 <span class="hljs-meta">&amp; Pict2 <span class="hljs-comment">// Superimposes Pict2 on top of  Pict1</span></span>
+</code></pre>
+<p><img src="../assets/en/superimpoExc.fr.png" alt=""></p>
+<p>Inclusive superimposition</p>
+<pre><code class="hljs"><span class="hljs-symbol">Pict3:</span>=Pict1|Pict2 <span class="hljs-comment">// Recovers resulting mask from superimposing two pictures of the same size</span>
+</code></pre>
+<p><img src="../assets/en/superimpoInc.fr.png" alt=""></p>
+<p>Horizontal move</p>
+<pre><code class="hljs">rectangle+<span class="hljs-number">50</span> ` Move <span class="hljs-keyword">the</span> rectangle <span class="hljs-number">50</span> pixels <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> <span class="hljs-literal">right</span>
+rectangle<span class="hljs-number">-50</span> ` Move <span class="hljs-keyword">the</span> rectangle <span class="hljs-number">50</span> pixels <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> left
+</code></pre>
+<p><img src="../assets/en/hormove.en.png" alt=""></p>
+<p>Vertical move</p>
+<pre><code class="hljs"><span class="hljs-built_in">rectangle</span>/<span class="hljs-number">50</span> ` Move the <span class="hljs-built_in">rectangle</span> down <span class="hljs-keyword">by</span> <span class="hljs-number">50</span> pixels
+<span class="hljs-built_in">rectangle</span>/-<span class="hljs-number">20</span> ` Move the <span class="hljs-built_in">rectangle</span> up <span class="hljs-keyword">by</span> <span class="hljs-number">20</span> pixels
+</code></pre>
+<p><img src="../assets/en/vertmove.en.png" alt=""><img src="../assets/en/vertmove2.en.png" alt=""></p>
+<p>Resize</p>
+<pre><code class="hljs">rectangle*<span class="hljs-number">1.5</span> ` The rectangle becomes <span class="hljs-number">50</span>% bigger
+rectangle*<span class="hljs-number">0.5</span> ` The rectangle becomes <span class="hljs-number">50</span>% smaller
+</code></pre>
+<p><img src="../assets/en/resize.en.png" alt=""><img src="../assets/en/resisze2.en.png" alt=""></p>
+<p>Horizontal scaling</p>
+<pre><code class="hljs"><span class="hljs-built_in">circle</span>*+<span class="hljs-number">3</span> ` The <span class="hljs-built_in">circle</span> becomes <span class="hljs-number">3</span> times wider
+<span class="hljs-built_in">circle</span>*+<span class="hljs-number">0.25</span> ` The <span class="hljs-built_in">circle</span>'s width becomes a quarter of what it was
+</code></pre>
+<p><img src="../assets/en/Horscaling.en.png" alt=""><img src="../assets/en/Horscaling2.en.png" alt=""></p>
+<p>Vertical scaling</p>
+<pre><code class="hljs"><span class="hljs-built_in">circle</span>*/<span class="hljs-number">2</span> ` The <span class="hljs-built_in">circle</span> becomes twice as tall
+<span class="hljs-built_in">circle</span>*/<span class="hljs-number">0.25</span> ` The <span class="hljs-built_in">circle</span>'s height becomes a quarter of what it was
+</code></pre>
+<p><img src="../assets/en/vertscaling.en.png" alt=""><img src="../assets/en/veticalscaling2.en.png" alt=""></p>
+<h2><a class="anchor" aria-hidden="true" id="blob"></a><a href="#blob" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BLOB</h2>
+<p>A BLOB (Binary Large OBjects) field or variable is a contiguous series of bytes which can be treated as one whole object or whose bytes can be addressed individually. A BLOB can be empty (null length) or can contain up to 2147483647 bytes (2 GB).</p>
+<h4><a class="anchor" aria-hidden="true" id="blobs-and-memory"></a><a href="#blobs-and-memory" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BLOBs and Memory</h4>
+<p>A BLOB is loaded into memory in its entirety. A BLOB variable or BLOB array is held and exists in memory only. A BLOB field is loaded into memory from the disk, like the rest of the record to which it belongs.</p>
+<p>Like the other field types that can retain a large amount of data (such as the Picture field type), BLOB fields are not duplicated in memory when you modify a record. Consequently, the result returned by the commands and is not significant when applied to a BLOB field.</p>
+<h4><a class="anchor" aria-hidden="true" id="displaying-blobs"></a><a href="#displaying-blobs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Displaying BLOBs</h4>
+<p>A BLOB can retain any type of data, so it has no default representation on the screen. If you display a BLOB field or variable in a form, it will always appear blank, whatever its contents.
+BLOB fields  OutlineEditDeleteOrganizeSee the differencesAnchor</p>
+<p>You can use BLOB fields to store any kind of data, up to 2 GB. You cannot index a BLOB field, so you must use a formula in order to search records on values stored in a BLOB field.</p>
+<h4><a class="anchor" aria-hidden="true" id="parameter-passing-pointers-and-function-results"></a><a href="#parameter-passing-pointers-and-function-results" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parameter passing, Pointers and function results</h4>
+<p>4D BLOBs can be passed as parameters to 4D commands or plug-in routines that expect BLOB parameters. BLOBS can also be passed as parameters to a user method or be returned as a function result.</p>
+<p>To pass a BLOB to your own methods, you can also define a pointer to the BLOB and pass the pointer as parameter.</p>
+<p><strong>Examples:</strong></p>
+<pre><code class="hljs">  ` Declare a variable <span class="hljs-keyword">of</span> <span class="hljs-keyword">type</span> BLOB
+ C_BLOB(anyBlobVar)
+  ` The BLOB <span class="hljs-keyword">is</span> passed <span class="hljs-keyword">as</span> parameter <span class="hljs-keyword">to</span> a <span class="hljs-number">4</span>D command
+ <span class="hljs-keyword">SET</span> BLOB SIZE(anyBlobVar;<span class="hljs-number">1024</span>*<span class="hljs-number">1024</span>)
+  ` The BLOB <span class="hljs-keyword">is</span> passed <span class="hljs-keyword">as</span> parameter <span class="hljs-keyword">to</span> an <span class="hljs-keyword">external</span> routine
+ $errCode:=<span class="hljs-keyword">Do</span> Something <span class="hljs-keyword">With</span> This BLOB(anyBlobVar)
+  ` The BLOB <span class="hljs-keyword">is</span> passed <span class="hljs-keyword">as</span> a parameter <span class="hljs-keyword">to</span> a <span class="hljs-function"><span class="hljs-keyword">method</span> <span class="hljs-title">that</span> <span class="hljs-title">returns</span> <span class="hljs-title">a</span> <span class="hljs-title">BLOB</span>
+ <span class="hljs-title">C_BLOB</span><span class="hljs-params">(retrieveBlob)</span>
+ <span class="hljs-title">retrieveBlob</span>:</span>=Fill_Blob(anyBlobVar)
+  ` A pointer <span class="hljs-keyword">to</span> the BLOB <span class="hljs-keyword">is</span> passed <span class="hljs-keyword">as</span> parameter <span class="hljs-keyword">to</span> a user <span class="hljs-function"><span class="hljs-keyword">method</span>
+ <span class="hljs-title">COMPUTE</span> <span class="hljs-title">BLOB</span><span class="hljs-params">(-&gt;anyBlobVar)</span>
+</span></code></pre>
+<p><strong>Note for Plug-in developers:</strong> A BLOB parameter is declared as “&amp;O” (the letter “O”, not the digit “0”).</p>
+<h4><a class="anchor" aria-hidden="true" id="assignment"></a><a href="#assignment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Assignment</h4>
+<p>You can assign BLOBs to each other.</p>
+<p>Example:</p>
+<pre><code class="hljs">  ` Declare two variables of<span class="hljs-built_in"> type </span>BLOB
+ C_BLOB(vBlobA;vBlobB)
+  ` <span class="hljs-builtin-name">Set</span> the size of the first BLOB <span class="hljs-keyword">to</span> 10K
+ <span class="hljs-builtin-name">SET</span> BLOB SIZE(vBlobA;10<span class="hljs-number">*1024</span>)
+  ` Assign the first BLOB <span class="hljs-keyword">to</span> the second one
+ vBlobB:=vBlobA
+</code></pre>
+<p>However, no operator can be applied to BLOBs.</p>
+<h4><a class="anchor" aria-hidden="true" id="addressing-blob-contents"></a><a href="#addressing-blob-contents" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Addressing BLOB contents</h4>
+<p>You can address each byte of a BLOB individually using the curly brackets symbols {...}. Within a BLOB, bytes are numbered from 0 to N-1, where N is the size of the BLOB. Example:</p>
+<pre><code class="hljs">  ` Declare a variable of<span class="hljs-built_in"> type </span>BLOB
+ C_BLOB(vBlob)
+  ` <span class="hljs-builtin-name">Set</span> the size of the BLOB <span class="hljs-keyword">to</span> 256 bytes
+ <span class="hljs-builtin-name">SET</span> BLOB SIZE(vBlob;256)
+  ` The loop below initializes the 256 bytes of the BLOB <span class="hljs-keyword">to</span> zero
+ <span class="hljs-keyword">For</span>(vByte;0;BLOB size(vBlob)-1)
+    vBlob{vByte}:=0
+ End <span class="hljs-keyword">for</span>
+</code></pre>
+<p>Because you can address all the bytes of a BLOB individually, you can actually store whatever you want in a BLOB field or variable.</p>
+<h2><a class="anchor" aria-hidden="true" id="object"></a><a href="#object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object</h2>
+<p>Variables, fields or expressions of the Object type can contain various types of data. The structure of &quot;native&quot; 4D objects is based on the classic principle of &quot;property/value&quot; pairs. The syntax of these objects is based on JSON notation, but does not follow it completely.</p>
+<ul>
+<li><p>A property name is always a text, for example &quot;Name&quot;.</p></li>
+<li><p>A property value can be of the following type:</p>
+<ul>
+<li>number (Real, Integer, etc.)</li>
+<li>text</li>
+<li>array (text, real, Boolean, object, pointer)</li>
+<li>null</li>
+<li>Boolean</li>
+<li>pointer (stored as such, evaluated using the command or when copying),</li>
+<li>date (format &quot;&quot;YYYY-MM-DDTHH:mm:sssZ&quot;&quot;)</li>
+<li>object (objects can be nested on several levels)</li>
+<li>picture(*)</li>
+<li>collection</li>
+</ul></li>
+</ul>
+<p>(*)When exposed as text in the debugger or exported to JSON, picture object properties print &quot;[object Picture]&quot;. Pay attention to the fact that saving the record afterwards will save the &quot;[object Picture]&quot; string in the attribute.</p>
+<p><strong>Warning:</strong> Keep in mind that attribute names differentiate between upper and lower case.</p>
+<p>You manage Object type variables, fields or expressions using the commands available in the <strong>Objects (Language)</strong> theme or through the object notation (see <strong>Using object notation</strong>). Note that specific commands of the Queries theme such as <strong>QUERY BY ATTRIBUTE</strong>, <strong>QUERY SELECTION BY ATTRIBUTE</strong>, or <strong>ORDER BY ATTRIBUTE</strong> can be used to carry out processing on object fields.</p>
+<p>Each property value accessed through the object notation is considered an expression. When the object notation is enabled in your database (see below), you can use such values wherever 4D expressions are expected:</p>
+<ul>
+<li>in 4D code, either written in the methods (Method editor) or externalized (formulas, 4D tags files processed by or the Web Server, export files, 4D Write Pro documents...),</li>
+<li>in the Expression areas of the Debugger and the Runtime explorer,</li>
+<li>in the Property list of the Form editor for form objects: Variable or Expression field as well as various selection list box and columns expressions (Data Source, background color, style, or font color).</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="initialization"></a><a href="#initialization" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Initialization</h3>
+<p>Objects must have been initialized, for example using the <strong>New object</strong> command, otherwise trying to read or modify their properties will generate a syntax error.</p>
+<p>Example:</p>
+<pre><code class="hljs"> C_OBJECT(<span class="hljs-variable">$obVar</span>) <span class="hljs-comment">//creation of an object type 4D variable</span>
+ <span class="hljs-variable">$obVar</span>:=New <span class="hljs-selector-tag">object</span> <span class="hljs-comment">//initialization of the object and assignment to the 4D variable</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="syntax-basics"></a><a href="#syntax-basics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Syntax basics</h3>
+<p>Object notation can be used to access object property values through a chain of tokens.</p>
+<h4><a class="anchor" aria-hidden="true" id="object-properties"></a><a href="#object-properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object properties</h4>
+<p>With object notation, object properties can be accessed in two ways:</p>
+<ul>
+<li>using a &quot;dot&quot; symbol:
+<blockquote>
+<p>object.propertyName</p>
+</blockquote></li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs">     employee<span class="hljs-selector-class">.name</span>:=<span class="hljs-string">"Smith"</span>
+</code></pre>
+<ul>
+<li>using a string within square brackets:
+<blockquote>
+<p>object[&quot;propertyName&quot;]</p>
+</blockquote></li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs">     $vName:=employee[<span class="hljs-string">"name"</span>]
+</code></pre>
+<p>Since an object property value can be an object or a collection, object notation accepts a sequence of symbols to access sub-properties, for example:</p>
+<pre><code class="hljs"> <span class="hljs-variable">$vAge</span>:=employee<span class="hljs-selector-class">.children</span>[<span class="hljs-number">2</span>]<span class="hljs-selector-class">.age</span>
+</code></pre>
+<p>Object notation is available on any language element that can contains or returns an object, i.e:</p>
+<ul>
+<li><strong>Objects</strong> themselves (stored in variables, fields, object properties, object arrays, or collection elements).
+Examples:</li>
+</ul>
+<pre><code class="hljs">     <span class="hljs-variable">$age</span>:=<span class="hljs-variable">$myObjVar</span><span class="hljs-selector-class">.employee</span><span class="hljs-selector-class">.age</span> <span class="hljs-comment">//variable</span>
+     <span class="hljs-variable">$addr</span>:=[Emp]data_obj<span class="hljs-selector-class">.address</span> <span class="hljs-comment">//field</span>
+     <span class="hljs-variable">$city</span>:=<span class="hljs-variable">$addr</span><span class="hljs-selector-class">.city</span> <span class="hljs-comment">//property of an object</span>
+     <span class="hljs-variable">$pop</span>:=<span class="hljs-variable">$aObjCountries</span>{<span class="hljs-number">2</span>}<span class="hljs-selector-class">.population</span> <span class="hljs-comment">//object array</span>
+     <span class="hljs-variable">$val</span>:=<span class="hljs-variable">$myCollection</span>[<span class="hljs-number">3</span>]<span class="hljs-selector-class">.subvalue</span> <span class="hljs-comment">//collection element</span>
+</code></pre>
+<ul>
+<li><strong>4D commands</strong> that return objects.
+Example:</li>
+</ul>
+<pre><code class="hljs">     <span class="hljs-variable">$measures</span>:=Get database measures<span class="hljs-selector-class">.DB</span><span class="hljs-selector-class">.tables</span>
+</code></pre>
+<ul>
+<li><strong>Project methods</strong> that return objects.
+Example:</li>
+</ul>
+<pre><code class="hljs">      <span class="hljs-regexp">//</span> MyMethod1
+     C_OBJECT(<span class="hljs-variable">$0</span>)
+     <span class="hljs-variable">$0</span>:=New object(<span class="hljs-string">"a"</span>;<span class="hljs-number">10</span>;<span class="hljs-string">"b"</span>;<span class="hljs-number">20</span>)
+     
+      <span class="hljs-regexp">//my</span>Method2
+     <span class="hljs-variable">$result</span>:=MyMethod1.a <span class="hljs-regexp">//</span><span class="hljs-number">10</span>
+</code></pre>
+<ul>
+<li>Collections.
+Example:</li>
+</ul>
+<pre><code class="hljs">     myColl<span class="hljs-selector-class">.length</span> <span class="hljs-comment">//size of the collection</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers"></a><a href="#pointers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers</h4>
+<p>Property values can be accessed through pointers. Using object notation with pointers is very similar to using object notation directly with objects, except that the &quot;dot&quot; symbol must be omitted.</p>
+<ul>
+<li>Direct access:</li>
+</ul>
+<blockquote>
+<p>pointerOnObject-&gt;propertyName</p>
+</blockquote>
+<ul>
+<li>Access by name:</li>
+</ul>
+<blockquote>
+<p>pointerOnObject-&gt;[&quot;propertyName&quot;]</p>
+</blockquote>
+<p>Example:</p>
+<pre><code class="hljs"> C_OBJECT(vObj)
+ C_POINTER(vPtr)
+ vObj:=New <span class="hljs-selector-tag">object</span>
+ vObj<span class="hljs-selector-class">.a</span>:=<span class="hljs-number">10</span>
+ vPtr:=-&gt;vObj
+ x:=vPtr-&gt;<span class="hljs-selector-tag">a</span> <span class="hljs-comment">//x=10</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="null-value"></a><a href="#null-value" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Null value</h4>
+<p>When using the object notation, the <strong>null</strong> value is supported though the <strong>Null</strong> command. This command can be used to assign or compare the null value to object properties or collection elements, for example:</p>
+<pre><code class="hljs"> myObject.address.zip:=<span class="hljs-literal">Null</span>
+ <span class="hljs-keyword">If</span>(myColl[<span class="hljs-number">2</span>]=<span class="hljs-literal">Null</span>)
+</code></pre>
+<p>For more information, please refer to the <strong>Null</strong> command description.</p>
+<h4><a class="anchor" aria-hidden="true" id="undefined-value"></a><a href="#undefined-value" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Undefined value</h4>
+<p>Evaluating an object property can sometimes produce an undefined value. Typically when trying to read or assign undefined expressions, 4D will generate errors. This does not happen in the following cases:</p>
+<ul>
+<li>Reading a property of an undefined object or value returns undefined; assigning an undefined value to variables (except arrays) has the same effect as calling with them:</li>
+</ul>
+<pre><code class="hljs">     C_OBJECT(<span class="hljs-variable">$o</span>)
+     C_LONGINT(<span class="hljs-variable">$val</span>)
+     <span class="hljs-variable">$val</span>:=<span class="hljs-number">10</span> <span class="hljs-comment">//$val=10</span>
+     <span class="hljs-variable">$val</span>:=<span class="hljs-variable">$o</span><span class="hljs-selector-class">.a</span> <span class="hljs-comment">//$o.a is undefined (no error), and assigning this value clears the variable</span>
+      <span class="hljs-comment">//$val=0</span>
+</code></pre>
+<ul>
+<li>Reading the <strong>length</strong> property of an undefined collection produces 0:</li>
+</ul>
+<pre><code class="hljs">     C_COLLECTION(<span class="hljs-variable">$c</span>) <span class="hljs-comment">//variable created but no collection is defined</span>
+     <span class="hljs-variable">$size</span>:=<span class="hljs-variable">$c</span><span class="hljs-selector-class">.length</span> <span class="hljs-comment">//$size = 0</span>
+</code></pre>
+<ul>
+<li>An undefined value passed as parameter to a project method is automatically converted to 0 or &quot;&quot; according to the declared parameter type.</li>
+</ul>
+<pre><code class="hljs">     C_OBJECT(<span class="hljs-variable">$o</span>)
+     mymethod(<span class="hljs-variable">$o</span>.a) <span class="hljs-regexp">//</span>pass an undefined parameter
+     
+      <span class="hljs-regexp">//</span>In mymethod method
+     C_TEXT(<span class="hljs-variable">$1</span>) <span class="hljs-regexp">//</span>parameter type is text
+      <span class="hljs-regexp">//</span> <span class="hljs-variable">$1</span> contains <span class="hljs-string">""</span>
+</code></pre>
+<ul>
+<li>A condition expression is automatically converted to false when evaluating to undefined with the If and Case of keywords:</li>
+</ul>
+<pre><code class="hljs">     C_OBJECT($o)
+     <span class="hljs-keyword">If</span>($o.a) // <span class="hljs-literal">false</span>
+     <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+     <span class="hljs-keyword">Case</span> <span class="hljs-keyword">of</span>
+        :($o.a) // <span class="hljs-literal">false</span>
+     <span class="hljs-keyword">End</span> <span class="hljs-keyword">case</span>
+</code></pre>
+<ul>
+<li>Assigning an undefined value to an existing object property reinitializes or clears its value, depending on its type:</li>
+<li>Object, collection, pointer: Null</li>
+<li>Picture: Empty picture</li>
+<li>Boolean: False</li>
+<li>String: &quot;&quot;</li>
+<li>Number: 0</li>
+<li>Date: !00-00-00! if &quot;Use date type instead of ISO date format in objects&quot; setting is enabled, otherwise &quot;&quot;</li>
+<li>Time: 0 (number of ms)</li>
+<li>Undefined, Null: no change</li>
+</ul>
+<pre><code class="hljs">     C_OBJECT(<span class="hljs-built_in">$o</span>)
+     <span class="hljs-built_in">$o</span>:=<span class="hljs-keyword">New</span> object(<span class="hljs-string">"a"</span><span class="hljs-comment">;2)</span>
+     <span class="hljs-built_in">$o</span>.a:=<span class="hljs-built_in">$o</span>.b <span class="hljs-comment">//$o.a=0</span>
+</code></pre>
+<ul>
+<li>Assigning an undefined value to a non existing object property does nothing.</li>
+</ul>
+<p>When expressions of a given type are expected in your 4D code, you can make sure they have the correct type even when evaluated to undefined by surrounding them with the appropriate 4D cast command: <strong>String</strong>, <strong>Num</strong>, <strong>Date</strong>, <strong>Time</strong>, <strong>Bool</strong>. These commands return an empty value of the specified type when the expression evaluates to undefined. For example:</p>
+<pre><code class="hljs"> <span class="hljs-variable">$myString</span>:=Lowercase(String(<span class="hljs-variable">$o</span><span class="hljs-selector-class">.a</span><span class="hljs-selector-class">.b</span>)) <span class="hljs-comment">//make sure you get a string value even if undefined</span>
+  <span class="hljs-comment">//to avoid errors in the code</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="object-property-identifiers"></a><a href="#object-property-identifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Object property identifiers</h3>
+<p>Token member names (i.e., object property names accessed using the object notation) are more restrictive than standard 4D object names. They must comply with JavaScript Identifier Grammar (see ECMA Script standard):</p>
+<ul>
+<li>the first character must be a letter, an underscore (_), or a dollar sign ($),</li>
+<li>subsequent characters may be any letter, digit, an underscore or dollar sign (space characters are NOT allowed),</li>
+<li>they are case sensitive.</li>
+</ul>
+<p><strong>Note:</strong></p>
+<ul>
+<li>Using a table field as a collection index, for example a.b[[Table1]Id], is not allowed. You must use an intermediary variable.</li>
+<li>Creating object attributes using a string in square brackets allows you to override the ECMA Script rules. For example, the $o[&quot;My Att&quot;] attribute is valid in 4D, despite the space. In this case, however, it will not be possible to use dot notation with this attribute.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="examples-2"></a><a href="#examples-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<p>Using object notation simplifies the 4D code while handling objects. Note however that the command-based notation is still fully supported.</p>
+<ul>
+<li>Writing and reading objects (this example compares object notation and command notation):</li>
+</ul>
+<pre><code class="hljs">  <span class="hljs-comment">// Using the object notation</span>
+ C_OBJECT($myObj) <span class="hljs-comment">//declares a 4D variable object</span>
+ $myObj:=<span class="hljs-literal">New</span> object <span class="hljs-comment">//creates an object and assigns to the variable</span>
+ $myObj.age:=<span class="hljs-number">56</span>
+ $age:=$myObj.age <span class="hljs-comment">//56</span>
+ 
+  <span class="hljs-comment">// Using the command notation</span>
+ C_OBJECT($myObj2) <span class="hljs-comment">//declares a 4D variable object</span>
+ OB <span class="hljs-built_in">SET</span>($myObj2;<span class="hljs-string">"age"</span>;<span class="hljs-number">42</span>) <span class="hljs-comment">//creates an object and adds the age property</span>
+ $age:=OB Get($myObj2;<span class="hljs-string">"age"</span>) <span class="hljs-comment">//42</span>
+ 
+  <span class="hljs-comment">// Of course, both notations can be mixed</span>
+ C_OBJECT($myObj3)
+ OB <span class="hljs-built_in">SET</span>($myObj3;<span class="hljs-string">"age"</span>;<span class="hljs-number">10</span>)
+ $age:=$myObj3.age <span class="hljs-comment">//10</span>
+</code></pre>
+<ul>
+<li>Create a property and assign values, including objects:</li>
+</ul>
+<pre><code class="hljs"> C_OBJECT($Emp)
+ $Emp:=<span class="hljs-literal">New</span> object
+ $Emp.city:=<span class="hljs-string">"London"</span> <span class="hljs-comment">//creates the city property and sets its value to "London"</span>
+ $Emp.city:=<span class="hljs-string">"Paris"</span> <span class="hljs-comment">//modifies the city property</span>
+ $Emp.phone:=<span class="hljs-literal">New</span> object(<span class="hljs-string">"office"</span>;<span class="hljs-string">"123456789"</span>;<span class="hljs-string">"home"</span>;<span class="hljs-string">"0011223344"</span>)
+  <span class="hljs-comment">//creates the phone property and sets its value to an object</span>
+</code></pre>
+<ul>
+<li>Get a value in a sub-object is very simple using the object notation:</li>
+</ul>
+<pre><code class="hljs"> <span class="hljs-variable">$vCity</span>:=<span class="hljs-variable">$Emp</span><span class="hljs-selector-class">.city</span> <span class="hljs-comment">//"Paris"</span>
+ <span class="hljs-variable">$vPhone</span>:=<span class="hljs-variable">$Emp</span><span class="hljs-selector-class">.phone</span><span class="hljs-selector-class">.home</span> <span class="hljs-comment">//"0011223344"</span>
+</code></pre>
+<ul>
+<li>You can access properties as strings using the [ ] operator</li>
+</ul>
+<pre><code class="hljs"> <span class="hljs-variable">$Emp</span>[<span class="hljs-string">"city"</span>]:=<span class="hljs-string">"Berlin"</span> <span class="hljs-regexp">//m</span>odifies the city property
+  <span class="hljs-regexp">//</span>this can be useful <span class="hljs-keyword">for</span> creating properties through variables
+ C_TEXT(<span class="hljs-variable">$addr</span>)
+ <span class="hljs-variable">$addr</span>:=<span class="hljs-string">"address"</span>
+ For(<span class="hljs-variable">$i</span>;<span class="hljs-number">1</span>;<span class="hljs-number">4</span>)
+    <span class="hljs-variable">$Emp</span>[<span class="hljs-variable">$addr</span>+String(<span class="hljs-variable">$i</span>)]:=<span class="hljs-string">""</span>
+ End <span class="hljs-keyword">for</span>
+  <span class="hljs-regexp">//</span> creates <span class="hljs-number">4</span> empty properties <span class="hljs-string">"address1...address4"</span> <span class="hljs-keyword">in</span> the <span class="hljs-variable">$Emp</span> object
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="collection"></a><a href="#collection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Collection</h2>
+<p>Collections are ordered lists of values of similar or mixed types (text, number, object, boolean, collection, or null).</p>
+<p>To manage Collection type variables you must use object notation (see <strong>Using object notation</strong>).</p>
+<p>To access a collection element, you need to pass the element number inside square brackets:</p>
+<blockquote>
+<p>collectionRef[expression]</p>
+</blockquote>
+<p>You can pass any valid 4D expression which returns a positive integer in expression. Examples:</p>
+<pre><code class="hljs"> <span class="hljs-selector-tag">myCollection</span><span class="hljs-selector-attr">[5]</span>  <span class="hljs-comment">//access to 6th element of the collection</span>
+ <span class="hljs-selector-tag">myCollection</span><span class="hljs-selector-attr">[$var]</span>
+</code></pre>
+<p><strong>Warning:</strong> Collection elements are numbered from 0.</p>
+<p>You can assign a value to a collection element or get a collection element value using object notation:</p>
+<pre><code class="hljs"> myCol<span class="hljs-string">[10]</span>:=<span class="hljs-string">"My new element"</span>
+ $myVar:=myCol<span class="hljs-string">[0]</span>
+</code></pre>
+<p>If you assign an element's index that surpasses the last existing element of the collection, the collection is automatically resized and all new intermediary elements are assigned a null value:</p>
+<pre><code class="hljs"> C_COLLECTION(myCol)
+ myCol:=New collection(<span class="hljs-string">"A"</span>;<span class="hljs-string">"B"</span>)
+ myCol[<span class="hljs-number">5</span>]:=<span class="hljs-string">"Z"</span>
+  <span class="hljs-comment">//myCol[2]=null</span>
+  <span class="hljs-comment">//myCol[3]=null</span>
+  <span class="hljs-comment">//myCol[4]=null</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="regular-or-shared-collection"></a><a href="#regular-or-shared-collection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Regular or shared collection</h3>
+<p>You can create two types of collections:</p>
+<ul>
+<li>regular (non-shared) collections, using the <strong>New collection</strong> command. These collections support a large number of data types, including pictures and pointers. They can be edited without any specific access control.</li>
+<li>shared collections, using the <strong>New shared collection</strong> command. These collections can be shared between processes, including preemptive threads. Access to these collections are controlled by <strong>Use...End use</strong> structures.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="collection-methods"></a><a href="#collection-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Collection methods</h3>
+<p>4D collection references benefit from special methods (sometimes named <em>member functions</em>). Thanks to object notation, these methods can be applied to collection references using the following syntax:</p>
+<blockquote>
+<p>{$result:=}myCollection.memberFunction( {params} )</p>
+</blockquote>
+<p>Note that, even if it does not have parameters, a member function must be called with () parenthesis, otherwise a syntax error is generated.</p>
+<p>For example:</p>
+<pre><code class="hljs">$newCol:=$col.<span class="hljs-keyword">copy</span>() //deep <span class="hljs-keyword">copy</span> <span class="hljs-keyword">of</span> $col <span class="hljs-keyword">to</span> $newCol
+$col.push(<span class="hljs-number">10</span>;<span class="hljs-number">100</span>) //add <span class="hljs-number">10</span> and <span class="hljs-number">100</span> <span class="hljs-keyword">to</span> the collection
+</code></pre>
+<p>Some methods return the original collection after modification, so that you can run the calls in a sequence:</p>
+<pre><code class="hljs"> <span class="hljs-variable">$col</span>:=New collection(<span class="hljs-number">5</span>;20)
+ <span class="hljs-variable">$col2</span>:=<span class="hljs-variable">$col</span>.push(<span class="hljs-number">10</span>;100)<span class="hljs-selector-class">.sort</span>() <span class="hljs-comment">//$col2=[5,10,20,100]</span>
+</code></pre>
+<p><strong>Warning:</strong> When using methods, you must use ECMA Script compliant property paths, i.e. you cannot use &quot;.&quot;, &quot;[ ]&quot;, or spaces in property names. For example, according to the Object property identifiers section, property names such as $o[&quot;My.special.property&quot;] are supported. However, they will not be usable with collection methods:</p>
+<pre><code class="hljs"> <span class="hljs-symbol">$</span>vmin:=<span class="hljs-symbol">$</span>col.<span class="hljs-built-in">min</span>(<span class="hljs-string">"My.special.property"</span>) <span class="hljs-comment">//undefined</span>
+ <span class="hljs-symbol">$</span>vmin:=<span class="hljs-symbol">$</span>col.<span class="hljs-built-in">min</span>([<span class="hljs-string">"My.special.property"</span>]) <span class="hljs-comment">//error</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="propertypath-parameter"></a><a href="#propertypath-parameter" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>propertyPath parameter</h4>
+<p>Several member functions accept a <em>propertyPath</em> as parameter. This parameter stands for:</p>
+<ul>
+<li>either an object property name, for example &quot;lastName&quot;</li>
+<li>or an object property path, i.e. a hierarchical sequence of sub-properties linked with dot characters, for example &quot;employee.children.firstName&quot;.</li>
+</ul>
+<p>Consequently, when a propertyPath parameter is expected, using property names containing one or more &quot;.&quot; is not supported since it will prevent 4D from correctly parsing the path.</p>
+<h2><a class="anchor" aria-hidden="true" id="default-values"></a><a href="#default-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Default values</h2>
+<p>When variables are typed by means of a compiler directive, they receive a default value, which they will keep during the session as long as they have not been assigned.</p>
+<p>The default value depends on the variable type and category, its execution context (interpreted or compiled), as well as, for compiled mode, the compilation options defined on the Compiler page of the Database settings:</p>
+<ul>
+<li>Process and interprocess variables are always set &quot;to zero&quot; (which means, depending on the case, &quot;0&quot;, an empty string, an empty Blob, a Nil pointer, a blank date (00-00-00), etc.)</li>
+<li>Local variables are set:
+<ul>
+<li>in interpreted mode: to zero</li>
+<li>in compiled mode, depending on the <strong>Initialize local variables</strong> option of the Database settings:
+<ul>
+<li>to zero when &quot;to zero&quot; is chosen,</li>
+<li>to a set random value when &quot;to a random value&quot; is chosen (0x72677267 for numbers and times, always True for Booleans, the same as &quot;to zero&quot; for the others),</li>
+<li>to a random value (for numbers) when &quot;no&quot; is chosen.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The following table illustrates these default values:</p>
+<table>
+<thead>
+<tr><th>Type</th><th>Interprocess</th><th>Process</th><th>Local interpreted</th><th>Local compiled &quot;to zero&quot;</th><th>Local compiled &quot;random&quot;</th><th>Local compiled &quot;no&quot;</th></tr>
+</thead>
+<tbody>
+<tr><td>Booleen</td><td>False</td><td>False</td><td>False</td><td>False</td><td>True</td><td>True (varies)</td></tr>
+<tr><td>Date</td><td>00-00-00</td><td>00-00-00</td><td>00-00-00</td><td>00-00-00</td><td>00-00-00</td><td>00-00-00</td></tr>
+<tr><td>Longint</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1919382119</td><td>909540880 (varies)</td></tr>
+<tr><td>Graph (obsolete)</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1919382119</td><td>775946656 (varies)</td></tr>
+<tr><td>Time</td><td>00:00:00</td><td>00:00:00</td><td>00:00:00</td><td>00:00:00</td><td>533161:41:59</td><td>249345:34:24 (varies)</td></tr>
+<tr><td>Picture</td><td>picture size=0</td><td>picture size=0</td><td>picture size=0</td><td>picture size=0</td><td>picture size=0</td><td>picture size=0</td></tr>
+<tr><td>Real</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1.250753659382e+243</td><td>1.972748538022e-217 (varies)</td></tr>
+<tr><td>Pointer</td><td>Nil=true</td><td>Nil=true</td><td>Nil=true</td><td>Nil=true</td><td>Nil=true</td><td>Nil=true</td></tr>
+<tr><td>Text</td><td>&quot;&quot;</td><td>&quot;&quot;</td><td>&quot;&quot;</td><td>&quot;&quot;</td><td>&quot;&quot;</td><td>&quot;&quot;</td></tr>
+<tr><td>Blob</td><td>Blob size=0</td><td>Blob size=0</td><td>Blob size=0</td><td>Blob size=0</td><td>Blob size=0</td><td>Blob size=0</td></tr>
+<tr><td>Object</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr>
+<tr><td>Collection</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td><td>null</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="converting-data-types"></a><a href="#converting-data-types" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Converting data types</h2>
+<p>The 4D language contains operators and commands to convert between data types, where such conversions are meaningful. The 4D language enforces data type checking. For example, you cannot write: &quot;abc&quot;+0.5+!12/25/96!-?00:30:45?. This will generate syntax errors.</p>
+<p>The following table lists the basic data types, the data types to which they can be converted, and the commands used to do so:</p>
+<table>
+<thead>
+<tr><th>Data Type to Convert</th><th>to String</th><th>to Number</th><th>to Date</th><th>to Time</th></tr>
+</thead>
+<tbody>
+<tr><td>String(1)</td><td></td><td>Num</td><td>Date</td><td>Time</td></tr>
+<tr><td>Number (2)</td><td>String</td><td></td><td></td><td></td></tr>
+<tr><td>Date</td><td>String</td><td></td><td></td><td></td></tr>
+<tr><td>Time</td><td>String</td><td></td><td></td><td></td></tr>
+<tr><td>Boolean</td><td></td><td>Num</td><td></td><td></td></tr>
+<tr><td>Object</td><td>JSON Stringify</td><td></td><td></td><td></td></tr>
+<tr><td>Collection</td><td>JSON Stringify</td><td></td><td></td><td></td></tr>
+</tbody>
+</table>
+<p>(1) Strings formatted in JSON can be converted into scalar data, objects, or collections, using the JSON Parse command.
+(2) Time values can be be treated as numbers.</p>
+<p><strong>Note:</strong> In addition to the data conversions listed in this table, more sophisticated data conversions can be obtained by combining operators and other commands.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/Concepts/quick-tour.html">← A Quick Tour</a><a class="docs-next button" href="/docs/Concepts/variables-arrays.html">Variables and Arrays →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#string">String</a><ul class="toc-headings"><li><a href="#string-literals">String literals</a></li><li><a href="#string-operators">String operators</a></li><li><a href="#character-reference-symbols">Character Reference Symbols</a></li></ul></li><li><a href="#date">Date</a><ul class="toc-headings"><li><a href="#date-constants">Date Constants</a></li><li><a href="#date-operators">Date operators</a></li></ul></li><li><a href="#time">Time</a><ul class="toc-headings"><li><a href="#time-constants">Time Constants</a></li><li><a href="#time-operators">Time operators</a></li></ul></li><li><a href="#numbers-real-integer">Numbers (Real, Integer)</a><ul class="toc-headings"><li><a href="#number-constants">Number Constants</a></li><li><a href="#number-operators">Number operators</a></li></ul></li><li><a href="#boolean">Boolean</a><ul class="toc-headings"><li><a href="#boolean-functions">Boolean functions</a></li><li><a href="#logical-operators">Logical Operators</a></li></ul></li><li><a href="#null-and-undefined">Null and Undefined</a><ul class="toc-headings"><li><a href="#null">Null</a></li><li><a href="#undefined">Undefined</a></li><li><a href="#examples">Examples</a></li></ul></li><li><a href="#pointer">Pointer</a><ul class="toc-headings"><li><a href="#using-a-pointer-basic-example">Using a pointer: Basic example</a></li><li><a href="#pointer-operators">Pointer operators</a></li></ul></li><li><a href="#picture">Picture</a><ul class="toc-headings"><li><a href="#native-formats-supported">Native Formats Supported</a></li><li><a href="#picture-operators">Picture Operators</a></li></ul></li><li><a href="#blob">BLOB</a></li><li><a href="#object">Object</a><ul class="toc-headings"><li><a href="#initialization">Initialization</a></li><li><a href="#syntax-basics">Syntax basics</a></li><li><a href="#object-property-identifiers">Object property identifiers</a></li><li><a href="#examples-2">Examples</a></li></ul></li><li><a href="#collection">Collection</a><ul class="toc-headings"><li><a href="#regular-or-shared-collection">Regular or shared collection</a></li><li><a href="#collection-methods">Collection methods</a></li></ul></li><li><a href="#default-values">Default values</a></li><li><a href="#converting-data-types">Converting data types</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/4dlogo.png" alt="Doc center 2018" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 20184D SAS</section></footer></div></body></html>

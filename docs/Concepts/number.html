@@ -1,0 +1,79 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Numbers (Real, Integer) · Doc center 2018</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Number is a generic term that stands for:"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Numbers (Real, Integer) · Doc center 2018"/><meta property="og:type" content="website"/><meta property="og:url" content="https://your-docusaurus-test-site.com/index.html"/><meta property="og:description" content="Number is a generic term that stands for:"/><meta property="og:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/4dLogo.gif" alt="Doc center 2018"/><h2 class="headerTitleWithLogo">Doc center 2018</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/Concepts/doc1.html" target="_self">Docs</a></li><li class=""><a href="/docs/doc4.html" target="_self">page4</a></li><li class=""><a href="http://doc.4d.com/" target="_self">doc.4d.com</a></li><li class=""><a href="http://kb.4d.com/" target="_self">knowledgebase</a></li><li class=""><a href="/en/help.html" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Numbers (Real, Integer)</h1></header><article><div><span><p>Number is a generic term that stands for:</p>
+<ul>
+<li>Real field, variable or expression. The range for the Real data type is ±1.7e±308 (13 significant digits).</li>
+<li>Long Integer field, variable or expression. The range for the Long Integer data type (4-byte Integer) is -2^31..(2^31)-1.</li>
+<li>Integer field, array or expression. The range for the Integer data type (2-byte Integer) is -32,768..32,767 (2^15..(2^15)-1).</li>
+</ul>
+<p><strong>Note:</strong> Integer field values are automatically converted in Long integers when used in the 4D Language.</p>
+<p>You can assign any Number data type to another; 4D does the conversion, truncating or rounding if necessary. However, when values are out of range, the conversion will not return a valid value. You can mix Number data types in expressions.</p>
+<p><strong>Note:</strong> In the 4D Language Reference manual, no matter the actual data type, the Real, Integer, and Long Integer parameters in command descriptions are denoted as number, except when marked otherwise.</p>
+<h2><a class="anchor" aria-hidden="true" id="declaring-a-number-variable"></a><a href="#declaring-a-number-variable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Declaring a number variable</h2>
+<p>To declare a number variable or array in the 4D language, you need to use:</p>
+<ul>
+<li><p>C_REAL for a real variable.</p></li>
+<li><p>C_LONGINT for an integer (longint) variable,</p></li>
+<li><p>ARRAY REAL for a real array</p></li>
+<li><p>ARRAY INTEGER for an integer array</p></li>
+<li><p>ARRAY LONGINT for a longint array</p></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="number-constants"></a><a href="#number-constants" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Number Constants</h2>
+<p>A numeric constant is written as a real number. Here are some examples of numeric constants:</p>
+<pre><code class="hljs"><span class="hljs-number">27</span>
+<span class="hljs-number">123.76</span>
+<span class="hljs-number">0.0076</span>
+</code></pre>
+<p><strong>Note:</strong> Since 4D v15, the default decimal separator is a period (.), regardless of the system language. If you have checked the &quot;Use regional system settings&quot; option (see Methods Page), you must use the separator defined in your system.</p>
+<p>Negative numbers are specified with the minus sign (-). For example:</p>
+<pre><code class="hljs">-<span class="ruby"><span class="hljs-number">27</span>
+</span>-<span class="ruby"><span class="hljs-number">123.76</span>
+</span>-<span class="ruby"><span class="hljs-number">0</span>.<span class="hljs-number">0076</span>
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="number-operators"></a><a href="#number-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Number operators</h2>
+<table>
+<thead>
+<tr><th>Operation</th><th>Syntax</th><th>Returns</th><th>Expression</th><th>Value</th></tr>
+</thead>
+<tbody>
+<tr><td>Addition</td><td>Number + Number</td><td>Number</td><td>2 + 3</td><td>5</td></tr>
+<tr><td>Subtraction</td><td>Number - Number</td><td>Number</td><td>3 – 2</td><td>1</td></tr>
+<tr><td>Multiplication</td><td>Number * Number</td><td>Number</td><td>5 * 2</td><td>10</td></tr>
+<tr><td>Division</td><td>Number /Number</td><td>Number</td><td>5 / 2</td><td>2.5</td></tr>
+<tr><td>Longint division</td><td>Number \ Number</td><td>Number</td><td>5 \ 2</td><td>2</td></tr>
+<tr><td>Modulo</td><td>Number % Number</td><td>Number</td><td>5 % 2</td><td>1</td></tr>
+<tr><td>Exponentiation</td><td>Number ^ Number</td><td>Number</td><td>2 ^ 3</td><td>8</td></tr>
+<tr><td>Equality</td><td>Number = Number</td><td>Boolean</td><td>10 = 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 = 11</td><td>False</td></tr>
+<tr><td>Inequality</td><td>Number # Number</td><td>Boolean</td><td>10 #11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 # 10</td><td>False</td></tr>
+<tr><td>Greater than</td><td>Number &gt; Number</td><td>Boolean</td><td>11 &gt; 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 &gt; 11</td><td>False</td></tr>
+<tr><td>Less than</td><td>Number &lt; Number</td><td>Boolean</td><td>10 &lt; 11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>11 &lt; 10</td><td>False</td></tr>
+<tr><td>Greater than or equal to</td><td>Number &gt;= Number</td><td>Boolean</td><td>11 &gt;= 10</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>10 &gt;= 11</td><td>False</td></tr>
+<tr><td>Less than or equal to</td><td>Number &lt;= Number</td><td>Boolean</td><td>10 &lt;= 11</td><td>True</td></tr>
+<tr><td></td><td></td><td></td><td>11 &lt;= 10</td><td>False</td></tr>
+</tbody>
+</table>
+<p>The modulo operator % divides the first number by the second number and returns a whole number remainder. Here are some examples:</p>
+<ul>
+<li>10 % 2 returns 0 because 10 is evenly divided by 2.</li>
+<li>10 % 3 returns 1 because the remainder is 1.</li>
+<li>10.5 % 2 returns 0 because the remainder is not a whole number.</li>
+</ul>
+<p><strong>WARNING:</strong></p>
+<ul>
+<li>The modulo operator % returns significant values with numbers that are in the Long Integer range (from minus 2^31 to 2^31 minus one). To calculate the modulo with numbers outside of this range, use the command.</li>
+<li>The longint division operator \ returns significant values with integer numbers only.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="precedence"></a><a href="#precedence" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Precedence</h3>
+<p>The order in which an expression is evaluated is called precedence. 4D has a strict left-to-right precedence, in which algebraic order is not observed. For example:</p>
+<pre><code class="hljs"> <span class="hljs-number">3</span>+<span class="hljs-number">4</span>*<span class="hljs-number">5</span>
+</code></pre>
+<p>returns 35, because the expression is evaluated as 3 + 4, yielding 7, which is then multiplied by 5, with the final result of 35.</p>
+<p>To override the left-to-right precedence, you MUST use parentheses. For example:</p>
+<pre><code class="hljs"> <span class="hljs-number">3</span>+(<span class="hljs-number">4</span>*<span class="hljs-number">5</span>)
+</code></pre>
+<p>returns 23 because the expression (4 * 5) is evaluated first, because of the parentheses. The result is 20, which is then added to 3 for the final result of 23.</p>
+<p>Parentheses can be nested inside other sets of parentheses. Be sure that each left parenthesis has a matching right parenthesis to ensure proper evaluation of expressions. Lack of, or incorrect use of parentheses can cause unexpected results or invalid expressions. Furthermore, if you intend to compile your applications, you must have matching parentheses—the compiler detects a missing parenthesis as a syntax error.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#declaring-a-number-variable">Declaring a number variable</a></li><li><a href="#number-constants">Number Constants</a></li><li><a href="#number-operators">Number operators</a><ul class="toc-headings"><li><a href="#precedence">Precedence</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/4dlogo.png" alt="Doc center 2018" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 20184D SAS</section></footer></div></body></html>

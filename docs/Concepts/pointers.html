@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Pointers · Doc center 2018</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="### Examples"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Pointers · Doc center 2018"/><meta property="og:type" content="website"/><meta property="og:url" content="https://your-docusaurus-test-site.com/index.html"/><meta property="og:description" content="### Examples"/><meta property="og:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/4dLogo.gif" alt="Doc center 2018"/><h2 class="headerTitleWithLogo">Doc center 2018</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/Concepts/doc1.html" target="_self">Docs</a></li><li class=""><a href="/docs/doc4.html" target="_self">page4</a></li><li class=""><a href="http://doc.4d.com/" target="_self">doc.4d.com</a></li><li class=""><a href="http://kb.4d.com/" target="_self">knowledgebase</a></li><li class=""><a href="/en/help.html" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Pointers</h1></header><article><div><span><h3><a class="anchor" aria-hidden="true" id="examples"></a><a href="#examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Examples</h3>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-buttons"></a><a href="#pointers-to-buttons" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Buttons</h4>
+<p>This section describes how to use a pointer to reference a button. A button is (from the language point of view) nothing more than a variable. Although the examples in this section use pointers to reference buttons, the concepts presented here apply to the use of all types of objects that can be referenced by a pointer.</p>
+<p>Let’s say that you have a number of buttons in your forms that need to be enabled or disabled. Each button has a condition associated with it that is TRUE or FALSE. The condition says whether to disable or enable the button. You could use a test like this each time you need to enable or disable the button:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">If</span>(Condition) ` <span class="hljs-keyword">If</span> the condition is <span class="hljs-literal">TRUE</span>…
+    OBJECT <span class="hljs-builtin-name">SET</span> ENABLED(MyButton;<span class="hljs-literal">True</span>) ` <span class="hljs-builtin-name">enable</span> the button
+ <span class="hljs-keyword">Else</span> ` Otherwise…
+    OBJECT <span class="hljs-builtin-name">SET</span> ENABLED(MyButton;<span class="hljs-literal">False</span>) ` <span class="hljs-builtin-name">disable</span> the button
+ End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>You would need to use a similar test for every button you set, with only the name of the button changing. To be more efficient, you could use a pointer to reference each button and then use a subroutine for the test itself.</p>
+<p>You must use pointers if you use a subroutine, because you cannot refer to the button’s variables in any other way. For example, here is a project method called SET BUTTON, which references a button with a pointer:</p>
+<pre><code class="hljs">  ` <span class="hljs-builtin-name">SET</span> BUTTON project method
+  ` <span class="hljs-builtin-name">SET</span> BUTTON ( Pointer ; Boolean )
+  ` <span class="hljs-builtin-name">SET</span> BUTTON ( -&gt; Button ; <span class="hljs-builtin-name">Enable</span> <span class="hljs-keyword">or</span> <span class="hljs-builtin-name">Disable</span> )
+  `
+  ` <span class="hljs-variable">$1</span> – Pointer <span class="hljs-keyword">to</span> a button
+  ` <span class="hljs-variable">$2</span> – Boolean. <span class="hljs-keyword">If</span> <span class="hljs-literal">TRUE</span>, <span class="hljs-builtin-name">enable</span> the button. <span class="hljs-keyword">If</span> <span class="hljs-literal">FALSE</span>, <span class="hljs-builtin-name">disable</span> the button
+ 
+ <span class="hljs-keyword">If</span>(<span class="hljs-variable">$2</span>) ` <span class="hljs-keyword">If</span> the condition is <span class="hljs-literal">TRUE</span>…
+    OBJECT <span class="hljs-builtin-name">SET</span> ENABLED(<span class="hljs-variable">$1</span>-&gt;;<span class="hljs-literal">True</span>) ` <span class="hljs-builtin-name">enable</span> the button
+ <span class="hljs-keyword">Else</span> ` Otherwise…
+    OBJECT <span class="hljs-builtin-name">SET</span> ENABLED(<span class="hljs-variable">$1</span>-&gt;;<span class="hljs-literal">False</span>) ` <span class="hljs-builtin-name">disable</span> the button
+ End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>You can call the SET BUTTON project method as follows:</p>
+<pre><code class="hljs">  ` <span class="hljs-built_in">..</span>.
+ <span class="hljs-builtin-name">SET</span> BUTTON(-&gt;bValidate;<span class="hljs-literal">True</span>)
+  ` <span class="hljs-built_in">..</span>.
+ <span class="hljs-builtin-name">SET</span> BUTTON(-&gt;bValidate;<span class="hljs-literal">False</span>)
+  ` <span class="hljs-built_in">..</span>.
+ <span class="hljs-builtin-name">SET</span> BUTTON(-&gt;bValidate;([Employee]Last Name#<span class="hljs-string">""</span>)
+  ` <span class="hljs-built_in">..</span>.
+ <span class="hljs-keyword">For</span>(<span class="hljs-variable">$vlRadioButton</span>;1;20)
+    <span class="hljs-variable">$vpRadioButton</span>:=<span class="hljs-builtin-name">Get</span> pointer(<span class="hljs-string">"r"</span>+String(<span class="hljs-variable">$vlRadioButton</span>))
+    <span class="hljs-builtin-name">SET</span> BUTTON(<span class="hljs-variable">$vpRadioButton</span>;<span class="hljs-literal">False</span>)
+ End <span class="hljs-keyword">for</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-tables"></a><a href="#pointers-to-tables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Tables</h4>
+<p>Anywhere that the language expects to see a table, you can use a dereferenced pointer to the table.
+You create a pointer to a table by using a line like this:</p>
+<pre><code class="hljs">TablePtr:=-&gt;[anyTable]
+</code></pre>
+<p>You can also get a pointer to a table by using the <strong>Table</strong> command. For example:</p>
+<pre><code class="hljs">TablePtr:=<span class="hljs-keyword">Table</span>(20)
+</code></pre>
+<p>You can use the dereferenced pointer in commands, like this:</p>
+<pre><code class="hljs">DEFAULT <span class="hljs-keyword">TABLE</span>(TablePtr-&gt;)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-fields"></a><a href="#pointers-to-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Fields</h4>
+<p>Anywhere that the language expects to see a field, you can use a dereferenced pointer to reference the field. You create a pointer to a field by using a line like this:</p>
+<pre><code class="hljs">FieldPtr:=-&gt;[aTable]ThisField
+</code></pre>
+<p>You can also get a pointer to a field by using the <strong>Field</strong> command. For example:</p>
+<pre><code class="hljs">FieldPtr:=Field(1;2)
+</code></pre>
+<p>You can use the dereferenced pointer in commands, like this:</p>
+<pre><code class="hljs">OBJECT <span class="hljs-keyword">SET</span> FONT(FieldPtr-&gt;;<span class="hljs-string">"Arial"</span>)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-variables"></a><a href="#pointers-to-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Variables</h4>
+<p>The example at the beginning of this section illustrates the use of a pointer to a variable:</p>
+<pre><code class="hljs">MyVar:=<span class="hljs-string">"Hello"</span>
+MyPointer:=-&gt;MyVar
+</code></pre>
+<p>You can use pointers to interprocess, process and local variables.</p>
+<p>When you use pointers to process or local variables, you must be sure that the variable pointed to is already set when the pointer is used. Keep in mind that local variables are deleted when the method that created them has completed its execution and process variables are deleted at the end of the process that created them. When a pointer calls a variable that no longer exists, this causes a syntax error in interpreted mode (variable not defined) but it can generate a more serious error in compiled mode.</p>
+<h5><a class="anchor" aria-hidden="true" id="note-about-local-variables"></a><a href="#note-about-local-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Note about local variables</h5>
+<p>Pointers to local variables allow you to save process variables in many cases. Pointers to local variables can only be used within the same process. In the debugger, when you display a pointer to a local variable that has been declared in another method, the original method name is indicated in parentheses, after the pointer. For example, if you write in Method1:</p>
+<pre><code class="hljs"><span class="hljs-meta">$</span><span class="bash">MyVar:=<span class="hljs-string">"Hello world"</span></span>
+<span class="hljs-meta">Method2(-&gt;</span><span class="bash"><span class="hljs-variable">$MyVar</span>)</span>
+</code></pre>
+<p>In Method2, the debugger will display $1 as follows:</p>
+<table>
+<thead>
+<tr><th>$1</th><th>-&gt;$MyVar (Method1)</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>The value of $1 will be:</p>
+<table>
+<thead>
+<tr><th>$MyVar (Method1)</th><th>&quot;Hello world&quot;</th></tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-array-elements"></a><a href="#pointers-to-array-elements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Array Elements</h4>
+<p>You can create a pointer to an array element. For example, the following lines create an array and assign a pointer to the first array element to a variable called ElemPtr:</p>
+<pre><code class="hljs">ARRAY REAL(anArray;10) ` Create an<span class="hljs-built_in"> array
+</span>ElemPtr:=-&gt;anArray{1} ` Create a pointer to the<span class="hljs-built_in"> array </span>element
+</code></pre>
+<p>You could use the dereferenced pointer to assign a value to the element, like this:</p>
+<pre><code class="hljs"><span class="hljs-meta">ElemPtr-&gt;</span><span class="bash">:=8</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-arrays"></a><a href="#pointers-to-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Arrays</h4>
+<p>You can create a pointer to an array. For example, the following lines create an array and assign a pointer to the array to a variable called ArrPtr:</p>
+<pre><code class="hljs">ARRAY REAL(anArray;10) ` Create an<span class="hljs-built_in"> array
+</span>ArrPtr:=-&gt;anArray ` Create a pointer to the<span class="hljs-built_in"> array
+</span></code></pre>
+<p>It is important to understand that the pointer points to the array; it does not point to an element of the array. For example, you can use the dereferenced pointer from the preceding lines like this:</p>
+<pre><code class="hljs">SORT ARRAY(ArrPtr-&gt;;&gt;) ` Sort the<span class="hljs-built_in"> array
+</span></code></pre>
+<p>If you need to refer to the fourth element in the array by using the pointer, you do this:</p>
+<pre><code class="hljs"><span class="hljs-meta">ArrPtr-&gt;</span><span class="bash">{4}:=84</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="array-of-pointers"></a><a href="#array-of-pointers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Array of Pointers</h4>
+<p>It is often useful to have an array of pointers that reference a group of related objects.</p>
+<p>One example of such a group of objects is a grid of variables in a form. Each variable in the grid is sequentially numbered, for example: Var1,Var2,…, Var10. You often need to reference these variables indirectly with a number. If you create an array of pointers, and initialize the pointers to point to each variable, you can then easily reference the variables. For example, to create an array and initialize each element, you could use the following lines:</p>
+<pre><code class="hljs">ARRAY POINTER(apPointers;10) ` Create an<span class="hljs-built_in"> array </span>to hold 10 pointers
+For($i;1;10) ` Loop once for each variable
+ apPointers{$i}:=Get pointer(<span class="hljs-string">"Var"</span>+String($i)) ` Initialize the<span class="hljs-built_in"> array </span>element
+End for
+</code></pre>
+<p>The function returns a pointer to the named object.</p>
+<p>To reference any of the variables, you use the array elements. For example, to fill the variables with the next ten dates (assuming they are variables of the date type), you could use the following lines:</p>
+<pre><code class="hljs"> <span class="hljs-keyword">For</span>(<span class="hljs-symbol">$</span>i;<span class="hljs-number">1</span>;<span class="hljs-number">10</span>) ` <span class="hljs-keyword">Loop</span> once <span class="hljs-keyword">for</span> each <span class="hljs-keyword">variable</span>
+    apPointers{$i}-&gt;:=Current <span class="hljs-comment">date+$i</span>  `<span class="hljs-comment"> Assign the dates</span>
+ End <span class="hljs-comment">for</span>
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="setting-a-button-using-a-pointer"></a><a href="#setting-a-button-using-a-pointer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting a Button Using a Pointer</h4>
+<p>If you have a group of related radio buttons in a form, you often need to set them quickly. It is inefficient to directly reference each one of them by name. Let’s say you have a group of radio buttons named Button1, Button2,…, Button5.</p>
+<p>In a group of radio buttons, only one radio button is on. The number of the radio button that is on can be stored in a numeric field. For example, if the field called [Preferences]Setting contains 3, then Button3 is selected. In your form method, you could use the following code to set the button:</p>
+<pre><code class="hljs"> Case of
+    :(Form <span class="hljs-attribute">event</span>=On Load)
+  ` <span class="hljs-built_in">..</span>.
+       Case of
+          :([Preferences]<span class="hljs-attribute">Setting</span>=1)
+             Button1:=1
+          :([Preferences]<span class="hljs-attribute">Setting</span>=2)
+             Button2:=1
+          :([Preferences]<span class="hljs-attribute">Setting</span>=3)
+             Button3:=1
+          :([Preferences]<span class="hljs-attribute">Setting</span>=4)
+             Button4:=1
+          :([Preferences]<span class="hljs-attribute">Setting</span>=5)
+             Button5:=1
+       End case
+  ` <span class="hljs-built_in">..</span>.
+ End case
+</code></pre>
+<p>A separate case must be tested for each radio button. This could be a very long method if you have many radio buttons in your form. Fortunately, you can use pointers to solve this problem. You can use the command to return a pointer to a radio button. The following example uses such a pointer to reference the radio button that must be set. Here is the improved code:</p>
+<pre><code class="hljs"> Case of
+    :(Form <span class="hljs-attribute">event</span>=On Load)
+  ` <span class="hljs-built_in">..</span>.
+       <span class="hljs-variable">$vpRadio</span>:=<span class="hljs-builtin-name">Get</span> pointer(<span class="hljs-string">"Button"</span>+String([Preferences]Setting))
+       <span class="hljs-variable">$vpRadio</span>-&gt;:=1
+  ` <span class="hljs-built_in">..</span>.
+ End case
+</code></pre>
+<p>The number of the set radio button must be stored in the field called [Preferences]Setting. You can do so in the form method for the <strong>On Clicked</strong> event:</p>
+<pre><code class="hljs"> [Preferences]Setting:=Button1+(Button2<span class="hljs-number">*2</span>)+(Button3<span class="hljs-number">*3</span>)+(Button4<span class="hljs-number">*4</span>)+(Button5<span class="hljs-number">*5</span>)
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-methods"></a><a href="#pointers-to-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Methods</h4>
+<p>You can pass a pointer as a parameter to a method. Inside the method, you can modify the object referenced by the pointer. For example, the following method, TAKE TWO, takes two parameters that are pointers. It changes the object referenced by the first parameter to uppercase characters, and the object referenced by the second parameter to lowercase characters. Here is the method:</p>
+<pre><code class="hljs">  ` TAKE TWO project method
+  ` $1 – Pointer <span class="hljs-keyword">to</span> a <span class="hljs-built_in">string</span> field <span class="hljs-literal">or</span> variable. Change this <span class="hljs-keyword">to</span> uppercase.
+  ` $2 – Pointer <span class="hljs-keyword">to</span> a <span class="hljs-built_in">string</span> field <span class="hljs-literal">or</span> variable. Change this <span class="hljs-keyword">to</span> lowercase.
+ $1-&gt;:=Uppercase($1-&gt;)
+ $2-&gt;:=Lowercase($2-&gt;)
+</code></pre>
+<p>The following line uses the TAKE TWO method to change a field to uppercase characters and to change a variable to lowercase characters:</p>
+<pre><code class="hljs"> TAKE TWO(-&gt;[My <span class="hljs-keyword">Table</span>]My <span class="hljs-keyword">Field</span>;-&gt;MyVar)
+</code></pre>
+<p>If the field [My Table]My Field contained the string &quot;jones&quot;, it would be changed to the string &quot;JONES&quot;. If the variable MyVar contained the string &quot;HELLO&quot;, it would be changed to the string &quot;hello&quot;.</p>
+<p>In the TAKE TWO method, and in fact, whenever you use pointers, it is important that the data type of the object being referenced is correct. In the previous example, the pointers must point to an object that contains a string or text.</p>
+<h4><a class="anchor" aria-hidden="true" id="pointers-to-pointers"></a><a href="#pointers-to-pointers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pointers to Pointers</h4>
+<p>If you really like to complicate things, you can use pointers to reference other pointers. Consider this example:</p>
+<pre><code class="hljs"> MyVar:=<span class="hljs-string">"Hello"</span>
+ <span class="hljs-function"><span class="hljs-title">PointerOne</span>:=-&gt;</span>MyVar
+ <span class="hljs-function"><span class="hljs-title">PointerTwo</span>:=-&gt;</span>PointerOne
+ <span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span>:=<span class="hljs-string">"Goodbye"</span>
+ ALERT<span class="hljs-function"><span class="hljs-params">((Point Two-&gt;)-&gt;)</span>
+</span></code></pre>
+<p>It displays an alert box with the word “Goodbye” in it.</p>
+<p>Here is an explanation of each line of the example:</p>
+<pre><code class="hljs">    MyVar:=<span class="hljs-string">"Hello"</span><span class="hljs-function">
+    --&gt;</span> This line puts the string <span class="hljs-string">"Hello"</span> into the variable MyVar.
+
+    <span class="hljs-function"><span class="hljs-title">PointerOne</span>:=-&gt;</span>MyVar<span class="hljs-function">
+    --&gt;</span> PointerOne now contains a pointer <span class="hljs-keyword">to</span> MyVar.
+
+    <span class="hljs-function"><span class="hljs-title">PointerTwo</span>:=-&gt;</span>PointerOne<span class="hljs-function">
+    --&gt;</span> PointerTwo (a <span class="hljs-keyword">new</span> variable) contains a pointer <span class="hljs-keyword">to</span> PointerOne, which <span class="hljs-keyword">in</span> turn points <span class="hljs-keyword">to</span> MyVar.
+
+    <span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span>:=<span class="hljs-string">"Goodbye"</span><span class="hljs-function">
+    --&gt;</span> PointerTwo-&gt; references the contents <span class="hljs-keyword">of</span> PointerOne, which <span class="hljs-keyword">in</span> turn references MyVar. Therefore <span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span> references the contents <span class="hljs-keyword">of</span> MyVar. So <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span> <span class="hljs-keyword">case</span>, MyVar <span class="hljs-keyword">is</span> assigned <span class="hljs-string">"Goodbye"</span>.
+
+    ALERT <span class="hljs-function"><span class="hljs-params">((PointerTwo-&gt;)-&gt;)</span>
+    --&gt;</span> Same thing: PointerTwo-&gt; references the contents <span class="hljs-keyword">of</span> PointerOne, which <span class="hljs-keyword">in</span> turn references MyVar. Therefore <span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span> references the contents <span class="hljs-keyword">of</span> MyVar. So <span class="hljs-keyword">in</span> <span class="hljs-keyword">this</span> <span class="hljs-keyword">case</span>, the alert box displays the contents <span class="hljs-keyword">of</span> myVar.
+</code></pre>
+<p>The following line puts &quot;Hello&quot; into MyVar:</p>
+<pre><code class="hljs"> <span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span>:=<span class="hljs-string">"Hello"</span>
+</code></pre>
+<p>The following line gets &quot;Hello&quot; from MyVar and puts it into NewVar:</p>
+<pre><code class="hljs"> NewVar:=<span class="hljs-function"><span class="hljs-params">(PointerTwo-&gt;)</span>-&gt;</span>
+</code></pre>
+<p>Important: Multiple dereferencing requires parentheses.</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/4dlogo.png" alt="Doc center 2018" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 20184D SAS</section></footer></div></body></html>

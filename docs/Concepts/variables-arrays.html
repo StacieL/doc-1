@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Variables and Arrays · Doc center 2018</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Data in 4D is stored in two fundamentally different ways. **Fields** store data permanently on disk; **variables and arrays** store data temporarily in memory."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Variables and Arrays · Doc center 2018"/><meta property="og:type" content="website"/><meta property="og:url" content="https://your-docusaurus-test-site.com/index.html"/><meta property="og:description" content="Data in 4D is stored in two fundamentally different ways. **Fields** store data permanently on disk; **variables and arrays** store data temporarily in memory."/><meta property="og:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://your-docusaurus-test-site.com/img/4dlogo.png"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/4dLogo.gif" alt="Doc center 2018"/><h2 class="headerTitleWithLogo">Doc center 2018</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/Concepts/doc1.html" target="_self">Docs</a></li><li class=""><a href="/docs/doc4.html" target="_self">page4</a></li><li class=""><a href="http://doc.4d.com/" target="_self">doc.4d.com</a></li><li class=""><a href="http://kb.4d.com/" target="_self">knowledgebase</a></li><li class=""><a href="/en/help.html" target="_self">Help</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>The 4D Language</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">The 4D Language</h3><ul><li class="navListItem"><a class="navItem" href="/docs/Concepts/doc1.html">About the 4D Language</a></li><li class="navListItem"><a class="navItem" href="/docs/Concepts/quick-tour.html">A Quick Tour</a></li><li class="navListItem"><a class="navItem" href="/docs/Concepts/data-types.html">Data types</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/Concepts/variables-arrays.html">Variables and Arrays</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Language Reference</h3><ul><li class="navListItem"><a class="navItem" href="/docs/doc3.html">This is document number 3</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Variables and Arrays</h1></header><article><div><span><p>Data in 4D is stored in two fundamentally different ways. <strong>Fields</strong> store data permanently on disk; <strong>variables and arrays</strong> store data temporarily in memory.</p>
+<p>When you set up your 4D database, you specify the names and types of fields that you want to use. Variables or arrays are much the same—you also give them names and different types (see <a href="/docs/Concepts/data-types.html">Data types</a>).</p>
+<p>Variables and arrays are very similar language elements. A <strong>variable</strong> stores single data. An <strong>array</strong> is an ordered series of <strong>variables</strong> of the same type. Each variable is called an <strong>element</strong> of the array. An array is given its size when it is created; you can then resize it as many times as needed by adding, inserting, or deleting elements, or by resizing the array using the same command used to create it. Array elements are numbered from 1 to N, where N is the size of the array. An array always has an element zero that you can access just like any other element of the array, but this element is not shown when an array is present in a form. Although the element zero is not shown when an array supports a form object, there is no restriction in using it with the language. Arrays are 4D variables. Like any variable, an array has a scope and follows the rules of the 4D language, though with some unique differences.</p>
+<p>Variables and arrays are language objects; you can create and use variable and arrays that will never appear on the screen.</p>
+<p>In your forms, you can display variables or arrays (except Pointer and BLOB) on the screen, enter data into them, and print them in reports. In this way, enterable and non-enterable area variables act just like fields, and the same built-in controls are available when you create them. Form variables can also control buttons, list boxes, scrollable areas, picture buttons, and so on, or display results of calculations that do not need to be saved.</p>
+<h2><a class="anchor" aria-hidden="true" id="creating-variables"></a><a href="#creating-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Variables</h2>
+<p>You create variables by declaring them using one of the &quot;Compiler&quot; theme commands. For example, if you want to define a text variable, you write:</p>
+<pre><code class="hljs"> C_TEXT(<span class="hljs-name">myText</span>)
+</code></pre>
+<p><strong>Note:</strong> Also it is usually not recommended, you can create variables simply by using them; you do not necessarily need to formally define them as you do with fields. For example, if you want to create a variable that will hold the current date plus 30 days, you can write:</p>
+<pre><code class="hljs"> MyDa<span class="hljs-symbol">te:</span>=Current <span class="hljs-built_in">date</span>+<span class="hljs-number">30</span> //MyDate is created <span class="hljs-built_in">and</span> gets the current <span class="hljs-built_in">date</span> plus <span class="hljs-number">30</span> <span class="hljs-built_in">days</span>
+</code></pre>
+<p>Once created, you can use a variable wherever you need it in your database. For example, you might need to store the text variable in a field of same type:</p>
+<pre><code class="hljs"> <span class="hljs-string">[MyTable]</span>MyField:=MyText
+</code></pre>
+<p>The following are some basic variable declarations:</p>
+<pre><code class="hljs"> C_BLOB(vxMyBlob) // The <span class="hljs-keyword">process</span> <span class="hljs-keyword">variable</span> vxMyBlob <span class="hljs-keyword">is</span> declared as a <span class="hljs-keyword">variable</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">type</span> BLOB
+ C_BOOLEAN(&lt;&gt;OnWindows) // The interprocess <span class="hljs-keyword">variable</span> &lt;&gt;OnWindows <span class="hljs-keyword">is</span> declared as a <span class="hljs-keyword">variable</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">type</span> <span class="hljs-built_in">Boolean</span>
+ C_DATE($vdCurDate) // The local <span class="hljs-keyword">variable</span> $vdCurDate <span class="hljs-keyword">is</span> declared as a <span class="hljs-keyword">variable</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">type</span> Date
+ C_LONGINT(vg1;vg2;vg3) // The <span class="hljs-number">3</span> <span class="hljs-keyword">process</span> variables vg1, vg2 <span class="hljs-keyword">and</span> vg3 are declared as variables <span class="hljs-keyword">of</span> <span class="hljs-keyword">type</span> longint
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="creating-arrays"></a><a href="#creating-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Arrays</h2>
+<p>You create an array with one of the array declaration commands from the &quot;Array&quot; theme. Each array declaration command can create or resize one-dimensional or two-dimensional arrays. For more information about two-dimensional arrays, see the XXX section.</p>
+<p>The following line of code creates (declares) an Integer array of 10 elements:</p>
+<pre><code class="hljs"> <span class="hljs-built_in">ARRAY</span> <span class="hljs-built_in">INTEGER</span>(aiAnArray;<span class="hljs-number">10</span>)
+</code></pre>
+<p>Then, the following code resizes that same array to 20 elements:</p>
+<pre><code class="hljs"><span class="hljs-built_in">ARRAY</span> <span class="hljs-built_in">INTEGER</span>(aiAnArray;<span class="hljs-number">20</span>)
+</code></pre>
+<p>Then, the following code resizes that same array to no elements:</p>
+<pre><code class="hljs"><span class="hljs-built_in">ARRAY</span> <span class="hljs-built_in">INTEGER</span>(aiAnArray;<span class="hljs-number">0</span>)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="assigning-data"></a><a href="#assigning-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Assigning Data</h2>
+<p>Data can be put into and copied out of variables and arrays. Putting data into a variable is called <strong>assigning the data to the variable</strong> and is done with the assignment operator (:=). The assignment operator is also used to assign data to fields.</p>
+<p>The assignment operator is the primary way to create a variable and to put data into it. You write the name of the variable that you want to create on the left side of the assignment operator. For example:</p>
+<pre><code class="hljs">MyNumber:=3
+</code></pre>
+<p>creates the variable <em>MyNumber</em> and puts the number 3 into it. If MyNumber already exists, then the number 3 is just put into it.</p>
+<p>Of course, variables would not be very useful if you could not get data out of them. Once again, you use the assignment operator. If you need to put the value of MyNumber in a field called [Products]Size, you would write <em>MyNumber</em> on the right side of the assignment operator:</p>
+<pre><code class="hljs"><span class="hljs-string">[Products]</span>Size:=MyNumber
+</code></pre>
+<p>In this case, <em>[Products]Size</em> would be equal to 3. This example is rather simple, but it illustrates the fundamental way that data is transferred from one place to another by using the language.</p>
+<p>You reference the elements in an array by using curly braces ({…}). A number is used within the braces to address a particular element; this number is called the element number. The following lines put five names into the array called atNames and then display them in alert windows:</p>
+<pre><code class="hljs"> ARRAY TEXT(atNames;<span class="hljs-number">5</span>)
+ atNames{<span class="hljs-number">1</span>}:=<span class="hljs-string">"Richard"</span>
+ atNames{<span class="hljs-number">2</span>}:=<span class="hljs-string">"Sarah"</span>
+ atNames{<span class="hljs-number">3</span>}:=<span class="hljs-string">"Sam"</span>
+ atNames{<span class="hljs-number">4</span>}:=<span class="hljs-string">"Jane"</span>
+ atNames{<span class="hljs-number">5</span>}:=<span class="hljs-string">"John"</span>
+ For($vlElem;<span class="hljs-number">1</span>;<span class="hljs-number">5</span>)
+    ALERT(<span class="hljs-string">"The element #"</span>+String($vlElem)+<span class="hljs-string">" is equal to: "</span>+atNames{$vlElem})
+ End <span class="hljs-keyword">for</span>
+</code></pre>
+<p>Note the syntax atNames{$vlElem}. Rather than specifying a numeric literal such as atNames{3}, you can use a numeric variable to indicate which element of an array you are addressing. Using the iteration provided by a loop structure (<strong>For...End for</strong>, <strong>Repeat...Until</strong> or <strong>While...End while</strong>), compact pieces of code can address all or part of the elements in an array.</p>
+<p><strong>Important:</strong> Be careful not to confuse the assignment operator (:=) with the comparison operator, equal (=). Assignment and comparison are very different operations.</p>
+<h4><a class="anchor" aria-hidden="true" id="assigning-an-array-to-another-array"></a><a href="#assigning-an-array-to-another-array" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Assigning an array to another array</h4>
+<p>Unlike text or string variables, you cannot assign one array to another. To copy (assign) an array to another one, use <strong>COPY ARRAY</strong>.</p>
+<h2><a class="anchor" aria-hidden="true" id="local-process-and-interprocess"></a><a href="#local-process-and-interprocess" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Local, Process, and Interprocess</h2>
+<p>You can create three types of variables and arrays: <strong>local</strong>, <strong>process</strong>, and <strong>interprocess</strong>. The difference between the three types of elements is their scope, or the objects to which they are available.</p>
+<h3><a class="anchor" aria-hidden="true" id="local-variables-or-arrays"></a><a href="#local-variables-or-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Local variables or arrays</h3>
+<p>A local variable is, as its name implies, local to a method—accessible only within the method in which it was created and not accessible outside of that method. Being local to a method is formally referred to as being “local in scope.” Local variables are used to restrict a variable so that it works only within the method.</p>
+<p>You may want to use a local variable to:</p>
+<ul>
+<li>Avoid conflicts with the names of other variables</li>
+<li>Use data temporarily</li>
+<li>Reduce the number of process variables</li>
+</ul>
+<p>The name of a local variable always starts with a dollar sign ($) and can contain up to 31 additional characters. If you enter a longer name, 4D truncates it to the appropriate length.</p>
+<p>When you are working in a database with many methods and variables, you often find that you need to use a variable only within the method on which you are working. You can create and use a local variable in the method without worrying about whether you have used the same variable name somewhere else.</p>
+<p>Frequently, in a database, small pieces of information are needed from the user. The command can obtain this information. It displays a dialog box with a message prompting the user for a response. When the user enters the response, the command returns the information the user entered. You usually do not need to keep this information in your methods for very long. This is a typical way to use a local variable. Here is an example:</p>
+<pre><code class="hljs"> <span class="hljs-variable">$vsID</span>:=Request(<span class="hljs-string">"Please enter your ID:"</span>)
+ <span class="hljs-keyword">If</span>(<span class="hljs-attribute">OK</span>=1)
+    QUERY([People];[People]ID =<span class="hljs-variable">$vsID</span>)
+ End <span class="hljs-keyword">if</span>
+</code></pre>
+<p>This method simply asks the user to enter an ID. It puts the response into a local variable, $vsID, and then searches for the ID that the user entered. When this method finishes, the $vsID local variable is erased from memory. This is fine, because the variable is needed only once and only in this method.</p>
+<p><strong>Note:</strong> Parameters $1, $2... passed to methods are local variables. For more information, please refer to <strong>Parameters</strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="process-variables-or-arrays"></a><a href="#process-variables-or-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Process variables or arrays</h3>
+<p>A process variable is available only within a process. It is accessible to the process method and any other method called from within the process.</p>
+<p>A process variable does not have a prefix before its name. A process variable name can contain up to 31 characters.</p>
+<p>In interpreted mode, variables are maintained dynamically; they are created and erased from memory “on the fly.” In compiled mode, all processes you create (user processes) share the same definition of process variables, but each process has a different instance for each variable. For example, the variable myVar is one variable in the process P_1 and another one in the process P_2.</p>
+<p>A process can “peek and poke” process variables from another process using the commands <strong>GET PROCESS VARIABLE</strong> and <strong>SET PROCESS VARIABLE</strong>. It is good programming practice to restrict the use of these commands to the situation for which they were added to 4D:</p>
+<ul>
+<li>Interprocess communication at specific places or your code</li>
+<li>Handling of interprocess drag and drop</li>
+<li>In Client/Server, communication between processes on client machines and the stored procedures running on the server machines</li>
+</ul>
+<p>For more information, see the chapter <strong>Processes</strong> and the description of these commands.</p>
+<h3><a class="anchor" aria-hidden="true" id="interprocess-variables-or-arrays"></a><a href="#interprocess-variables-or-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Interprocess variables or arrays</h3>
+<p>Interprocess variables are available throughout the database and are shared by all processes. They are primarily used to share information between processes.</p>
+<p>The name of an interprocess variable always begins with the symbols (&lt;&gt;) — a “less than” sign followed by a “greater than” sign— followed by 31 characters.</p>
+<p>In Client/Server, each machine (Client machines and Server machine) share the same definition of interprocess variables, but each machine has a different instance for each variable.</p>
+<h2><a class="anchor" aria-hidden="true" id="form-object-variables"></a><a href="#form-object-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Form Object Variables</h2>
+<p>In the Form editor, each active object—button, radio button, check box, scrollable area, meter bar, and so on—is identified by an object name and is automatically associated with a variable (or expression). By default, the variable is not defined when the object is created: it will be created dynamically when the form is loaded (see below). You can, if you want, name the variable in the Property List to create it. For example, if you create a button named MyButton, you can associated it with a MyButton variable (you can also use the same name as the object).</p>
+<p>The form object variables allow you to control and monitor the objects. For example, when a button is clicked, its variable is set to 1; at all other times, it is 0. The variable associated with a meter or dial lets you read and change the current setting. For example, if you drag a meter to a new setting, the value of the variable changes to reflect the new setting. Similarly, if a method changes the value of the variable, the meter is redrawn to show the new value.</p>
+<p>For more information about variables and forms, see the 4D Design Reference Manual as well as the chapter Form Events.</p>
+<h2><a class="anchor" aria-hidden="true" id="dynamic-variables"></a><a href="#dynamic-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic variables</h2>
+<p>You can leave it up to 4D to create variables associated with your form objects (buttons, enterable variables, check boxes, etc.) dynamically and according to your needs. To do this, simply leave the &quot;Variable Name&quot; field blank in the Property list for the object:</p>
+<p><img src="../assets/en/dynvar.en.png" alt=""></p>
+<p>When a variable is not named, when the form is loaded, 4D creates a new variable for the object, with a calculated name that is unique in the space of the process variables of the interpreter (which means that this mechanism can be used even in compiled mode). This temporary variable will be destroyed when the form is closed.
+In order for this principle to work in compiled mode, it is imperative that dynamic variables are explicitly typed. There are two ways to do this:</p>
+<ul>
+<li>You can set the type using the &quot;Variable Type&quot; menu of the Property list.
+<strong>Note:</strong> When the variable is named, the &quot;Variable Type&quot; menu does not actually type the variable but simply allows the options of the Property list to be updated (except for picture variables). In order to type a named variable, it is necessary to use the commands of the Compiler theme.</li>
+<li>You can use a specific initialization code when the form is loaded that uses, for example, the <strong>VARIABLE TO VARIABLE</strong> command:</li>
+</ul>
+<pre><code class="hljs">     <span class="hljs-keyword">If</span>(Form <span class="hljs-attribute">event</span>=On Load)
+        C_TEXT(<span class="hljs-variable">$init</span>)
+        <span class="hljs-variable">$Ptr_object</span>:=OBJECT <span class="hljs-builtin-name">Get</span> pointer(Object named;<span class="hljs-string">"comments"</span>)
+        <span class="hljs-variable">$init</span>:=<span class="hljs-string">""</span>
+        VARIABLE <span class="hljs-keyword">TO</span> VARIABLE(Current process;<span class="hljs-variable">$Ptr_object</span>-&gt;;<span class="hljs-variable">$init</span>)
+     End <span class="hljs-keyword">if</span>
+</code></pre>
+<p><strong>Note:</strong> If you specify a dynamic variable, select the value <strong>Non</strong>e in the &quot;Variable Type&quot; menu, and do not use initialization code, a typing error will be returned by the compiler.</p>
+<p>In the 4D code, dynamic variables can be accessed using a pointer obtained with the command. For example:</p>
+<pre><code class="hljs">  <span class="hljs-comment">// assign the time 12:00:00 to the variable for the "tstart" object</span>
+ <span class="hljs-symbol">$</span>p :=OBJECT Get pointer(Object named;<span class="hljs-string">"tstart"</span>)
+ <span class="hljs-symbol">$</span>p-&gt;:=?<span class="hljs-number">12</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>?
+</code></pre>
+<p>There are two advantages with this mechanism:</p>
+<ul>
+<li>On the one hand, it allows the development of &quot;subform&quot; type components that can be used several times in the same host form. Let us take as an example the case of a datepicker subform that is inserted twice in a host form to set a start date and an end date. This subform will use objects for choosing the date of the month and the year. It will be necessary for these objects to work with different variables for the start date and the end date. Letting 4D create their variable with a unique name is a way of resolving this difficulty.</li>
+<li>On the other hand, it can be used to limit memory usage. In fact, form objects only work with process or inter-process variables. However, in compiled mode, an instance of each process variable is created in all the processes, including the server processes. This instance takes up memory, even when the form is not used during the session. Therefore, letting 4D create variables dynamically when loading the forms can economize memory.</li>
+</ul>
+<p><strong>Note:</strong> When there is no variable name, the object name is shown in quotation marks in the form editor (when the object display a variable name by default).</p>
+<h2><a class="anchor" aria-hidden="true" id="about-arrays"></a><a href="#about-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>About Arrays</h2>
+<h3><a class="anchor" aria-hidden="true" id="using-the-element-zero-of-an-array"></a><a href="#using-the-element-zero-of-an-array" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the element zero of an array</h3>
+<p>An array always has an element zero. While element zero is not shown when an array supports a form object, there is no restriction(*) in using it with the language.</p>
+<p>One example of the use of element zero is the case of the combo box discussed in the <strong>CLOSE DOCUMENT</strong> section.</p>
+<p>Here is another example: you want to execute an action only when you click on an element other than the previously selected element. To do this, you must keep track of each selected element. One way to do this is to use a process variable in which you maintain the element number of the selected element. Another way is to use the element zero of the array:</p>
+<pre><code class="hljs">  ` atNames scrollable area object method
+ Case of
+    :(Form event=On <span class="hljs-keyword">Load</span>)
+  <span class="hljs-string">` Initialize the array (as shown further above)
+       ARRAY TEXT(atNames;5)
+  `</span> ...
+  <span class="hljs-string">` Initialize the element zero with the number
+  `</span> <span class="hljs-keyword">of</span> the <span class="hljs-keyword">current</span> selected <span class="hljs-keyword">element</span> <span class="hljs-keyword">in</span> its <span class="hljs-keyword">string</span> <span class="hljs-keyword">form</span>
+  <span class="hljs-string">` Here you start with no selected element
+       atNames{0}:="0"
+ 
+    :(Form event=On Unload)
+  `</span> We <span class="hljs-keyword">no</span> longer need the <span class="hljs-built_in">array</span>
+       <span class="hljs-keyword">CLEAR</span> <span class="hljs-keyword">VARIABLE</span>(atNames)
+ 
+    :(<span class="hljs-keyword">Form</span> <span class="hljs-keyword">event</span>=<span class="hljs-keyword">On</span> Clicked)
+       <span class="hljs-keyword">If</span>(atNames#<span class="hljs-number">0</span>)
+          <span class="hljs-keyword">If</span>(atNames#<span class="hljs-keyword">Num</span>(atNames{<span class="hljs-number">0</span>}))
+             vtInfo:=<span class="hljs-string">"You clicked on: "</span>+atNames{atNames}+<span class="hljs-string">" and it was not selected before."</span>
+             atNames{<span class="hljs-number">0</span>}:=<span class="hljs-keyword">String</span>(atNames)
+          <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+       <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+    :(<span class="hljs-keyword">Form</span> <span class="hljs-keyword">event</span>=<span class="hljs-keyword">On</span> <span class="hljs-keyword">Double</span> Clicked)
+       <span class="hljs-keyword">If</span>(atNames#<span class="hljs-number">0</span>)
+          ALERT(<span class="hljs-string">"You double clicked on: "</span>+atNames{atNames}
+       <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+ <span class="hljs-keyword">End</span> <span class="hljs-keyword">case</span>
+</code></pre>
+<p>(*) However, there is one exception: in an array type List Box, the zero element is used internally to store the previous value of an element being edited, so it is not possible to use it in this particular context.</p>
+<h3><a class="anchor" aria-hidden="true" id="two-dimensional-arrays"></a><a href="#two-dimensional-arrays" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Two-dimensional Arrays</h3>
+<p>Each of the array declaration commands can create or resize one-dimensional or two-dimensional arrays. Example:</p>
+<pre><code class="hljs"> ARRAY TEXT(atTopics;100;50) ` Creates a text<span class="hljs-built_in"> array </span>composed of 100 rows of 50 columns
+</code></pre>
+<p>Two-dimensional arrays are essentially language objects; you can neither display nor print them.</p>
+<p>In the previous example:</p>
+<ul>
+<li>atTopics is a two-dimensional array</li>
+<li>atTopics{8}{5} is the 5th element (5th column...) of the 8th row</li>
+<li>atTopics{20} is the 20th row and is itself a one-dimensional array</li>
+<li>(atTopics) returns 100, which is the number of rows</li>
+<li>(atTopics{17}) returns 50, which the number of columns for the 17th row</li>
+</ul>
+<p>In the following example, a pointer to each field of each table in the database is stored in a two-dimensional array:</p>
+<pre><code class="hljs"> C_LONGINT($vlLastTable;$vlLastField)
+ C_LONGINT($vlFieldNumber)
+  ` Create <span class="hljs-keyword">as</span> many rows (<span class="hljs-keyword">empty</span> <span class="hljs-keyword">and</span> without columns) <span class="hljs-keyword">as</span> there are tables
+ $vlLastTable:=Get last table number
+ <span class="hljs-keyword">ARRAY</span> POINTER(&lt;&gt;apFields;$vlLastTable;<span class="hljs-number">0</span>) `<span class="hljs-number">2</span>D <span class="hljs-keyword">array</span> with X rows <span class="hljs-keyword">and</span> zero columns
+  ` <span class="hljs-keyword">For</span> each table
+ <span class="hljs-keyword">For</span>($vlTable;<span class="hljs-number">1</span>;$vlLastTable)
+    <span class="hljs-keyword">If</span>(Is table number valid($vlTable))
+       $vlLastField:=Get last field number($vlTable)
+  ` Give value of elements
+       $vlColumnNumber:=<span class="hljs-number">0</span>
+       <span class="hljs-keyword">For</span>($vlField;<span class="hljs-number">1</span>;$vlLastField)
+          <span class="hljs-keyword">If</span>(Is field number valid($vlTable;$vlField))
+             $vlColumnNumber:=$vlColumnNumber+<span class="hljs-number">1</span>
+  `Insert a column in a row of the table underway
+             INSERT IN <span class="hljs-keyword">ARRAY</span>(&lt;&gt;apFields{$vlTable};$vlColumnNumber;<span class="hljs-number">1</span>)
+  `Assign the <span class="hljs-string">"cell"</span> with the pointer
+             &lt;&gt;apFields{$vlTable}{$vlColumnNumber}:=Field($vlTable;$vlField)
+          End <span class="hljs-keyword">if</span>
+       End <span class="hljs-keyword">for</span>
+    End <span class="hljs-keyword">if</span>
+ End <span class="hljs-keyword">for</span>
+</code></pre>
+<p>Provided that this two-dimensional array has been initialized, you can obtain the pointers to the fields for a particular table in the following way:</p>
+<pre><code class="hljs">  <span class="hljs-string">` Get the pointers to the fields for the table currently displayed at the screen:
+ COPY ARRAY(◊apFields{Table(Current form table)};$apTheFieldsIamWorkingOn)
+  `</span> Initialize <span class="hljs-built_in">Boolean</span> <span class="hljs-literal">and</span> <span class="hljs-built_in">Date</span> fields
+ For($vlElem;<span class="hljs-number">1</span>;Size of <span class="hljs-built_in">array</span>($apTheFieldsIamWorkingOn))
+    <span class="hljs-keyword">Case</span> of
+       :(<span class="hljs-keyword">Type</span>($apTheFieldsIamWorkingOn{$vlElem}-&gt;)=Is <span class="hljs-built_in">date</span>)
+          $apTheFieldsIamWorkingOn{$vlElem}-&gt;:=Current <span class="hljs-built_in">date</span>
+       :(<span class="hljs-keyword">Type</span>($apTheFieldsIamWorkingOn{$vlElem}-&gt;)=Is <span class="hljs-built_in">Boolean</span>)
+          $apTheFieldsIamWorkingOn{$vlElem}-&gt;:=<span class="hljs-literal">True</span>
+    End <span class="hljs-keyword">case</span>
+ End for
+</code></pre>
+<p><strong>Note:</strong> As this example suggests, rows of a two-dimensional arrays can be the same size or different sizes.</p>
+<h3><a class="anchor" aria-hidden="true" id="arrays-and-memory"></a><a href="#arrays-and-memory" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arrays and Memory</h3>
+<p>Unlike the data you store on disk using tables and records, an array is always held in memory in its entirety.</p>
+<p>For example, if all US zip codes were entered in the [Zip Codes] table, it would contain about 100,000 records. In addition, that table would include several fields: the zip code itself and the corresponding city, county, and state. If you select only the zip codes from California, the 4D database engine creates the corresponding selection of records within the [Zip Codes] table, and then loads the records only when they are needed (i.e., when they are displayed or printed). In order words, you work with an ordered series of values (of the same type for each field) that is partially loaded from the disk into the memory by the database engine of 4D.</p>
+<p>Doing the same thing with arrays would be prohibitive for the following reasons:</p>
+<ul>
+<li>In order to maintain the four information types (zip code, city, county, state), you would have to maintain four large arrays in memory.</li>
+<li>Because an array is always held in memory in its entirety, you would have to keep all the zip codes information in memory throughout the whole working session, even though the data is not always in use.</li>
+<li>Again, because an array is always held in memory in its entirety, each time the database is started and then quit, the four arrays would have to be loaded and then saved on the disk, even though the data is not used or modified during the working session.</li>
+</ul>
+<p><strong>Conclusion:</strong> Arrays are intended to hold reasonable amounts of data for a short period of time. On the other hand, because arrays are held in memory, they are easy to handle and quick to manipulate.</p>
+<p>However, in some circumstances, you may need to work with arrays holding hundreds or thousands of elements. The following table lists the formulas used to calculate the amount of memory used for each array type:</p>
+<table>
+<thead>
+<tr><th>Array Type</th><th>Formula for determining Memory Usage in Bytes</th></tr>
+</thead>
+<tbody>
+<tr><td>Boolean</td><td>(31+number of elements)\8</td></tr>
+<tr><td>Date</td><td>(1+number of elements) * 6</td></tr>
+<tr><td>String</td><td>(1+number of elements) * (Sum of the size of each text)</td></tr>
+<tr><td>Integer</td><td>(1+number of elements) * 2</td></tr>
+<tr><td>Long Integer</td><td>(1+number of elements) * 4</td></tr>
+<tr><td>Picture</td><td>(1+number of elements) * 4 + Sum of the size of each picture</td></tr>
+<tr><td>Pointer</td><td>(1+number of elements) * 16</td></tr>
+<tr><td>Real</td><td>(1+number of elements) * 8</td></tr>
+<tr><td>Text</td><td>(1+number of elements) * (Sum of the size of each text)</td></tr>
+<tr><td>Two-dimensional</td><td>(1+number of elements) * 12 + Sum of the size of each array</td></tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The size of a text in memory is calculated using this formula: ((Length + 1) * 2)</li>
+<li>A few additional bytes are required to keep track of the selected element, the number of elements, and the array itself.</li>
+</ul>
+<p>When working with very large arrays, the best way to handle full memory situations is to surround the creation of the arrays with an project method. Example:</p>
+<pre><code class="hljs">  ` You are going <span class="hljs-keyword">to</span> run a batch operation the whole night
+  ` that requires the creation <span class="hljs-keyword">of</span> large arrays. Instead <span class="hljs-keyword">of</span> risking
+  ` occurrences <span class="hljs-keyword">of</span> errors <span class="hljs-keyword">in</span> the middle <span class="hljs-keyword">of</span> the night, put
+  ` the creation <span class="hljs-keyword">of</span> the arrays at the beginning <span class="hljs-keyword">of</span> the operation
+  ` <span class="hljs-keyword">and</span> test the errors at this moment:
+ gError:=<span class="hljs-number">0</span> ` Assume no <span class="hljs-keyword">error</span>
+ <span class="hljs-keyword">ON</span> ERR <span class="hljs-keyword">CALL</span>(<span class="hljs-string">"ERROR HANDLING"</span>) ` Install a method <span class="hljs-keyword">for</span> catching errors
+ ARRAY <span class="hljs-built_in">STRING</span>(<span class="hljs-number">63</span>;asThisArray;<span class="hljs-number">50000</span>) ` Roughly <span class="hljs-number">3125</span>K <span class="hljs-keyword">in</span> ASCII mode
+ ARRAY REAL(arThisAnotherArray;<span class="hljs-number">50000</span>) ` <span class="hljs-number">488</span>K
+ <span class="hljs-keyword">ON</span> ERR <span class="hljs-keyword">CALL</span>(<span class="hljs-string">""</span>) ` No longer need <span class="hljs-keyword">to</span> <span class="hljs-keyword">catch</span> errors
+ <span class="hljs-keyword">If</span>(gError=<span class="hljs-number">0</span>)
+  ` The arrays could be created
+  ` <span class="hljs-keyword">and</span> <span class="hljs-keyword">let</span><span class="hljs-comment">'s pursue the operation</span>
+ <span class="hljs-keyword">Else</span>
+    ALERT(<span class="hljs-string">"This operation requires more memory!"</span>)
+ <span class="hljs-keyword">End</span> <span class="hljs-keyword">if</span>
+  ` Whatever the <span class="hljs-keyword">case</span>, we no longer need the arrays
+ CLEAR VARIABLE(asThisArray)
+ CLEAR VARIABLE(arThisAnotherArray)
+</code></pre>
+<p>The <em>ERROR HANDLING</em> project method is listed here:</p>
+<pre><code class="hljs">  ` ERROR HANDLING project <span class="hljs-function"><span class="hljs-keyword">method</span>
+ <span class="hljs-title">gError</span>:</span>=Error ` Just return the error code
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="system-variables"></a><a href="#system-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>System Variables</h2>
+<p>4D maintains a number of variables called <strong>system variables</strong>. These variables let you monitor many operations. System variables are all process variables, accessible only from within a process.</p>
+<p>The most important system variable is the OK system variable. As its name implies, it tells you if everything is OK in the particular process. Was the record saved? Has the importing operation been completed? Did the user click the OK button? The OK system variable is set to 1 when a task is completed successfully, and to 0 when it is not.</p>
+<p>For more information about system variables, see the section <strong>System Variables</strong>.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/Concepts/data-types.html">← Data types</a><a class="docs-next button" href="/docs/doc3.html">This is document number 3 →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#creating-variables">Creating Variables</a></li><li><a href="#creating-arrays">Creating Arrays</a></li><li><a href="#assigning-data">Assigning Data</a></li><li><a href="#local-process-and-interprocess">Local, Process, and Interprocess</a><ul class="toc-headings"><li><a href="#local-variables-or-arrays">Local variables or arrays</a></li><li><a href="#process-variables-or-arrays">Process variables or arrays</a></li><li><a href="#interprocess-variables-or-arrays">Interprocess variables or arrays</a></li></ul></li><li><a href="#form-object-variables">Form Object Variables</a></li><li><a href="#dynamic-variables">Dynamic variables</a></li><li><a href="#about-arrays">About Arrays</a><ul class="toc-headings"><li><a href="#using-the-element-zero-of-an-array">Using the element zero of an array</a></li><li><a href="#two-dimensional-arrays">Two-dimensional Arrays</a></li><li><a href="#arrays-and-memory">Arrays and Memory</a></li></ul></li><li><a href="#system-variables">System Variables</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/4dlogo.png" alt="Doc center 2018" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="http://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://code.facebook.com/projects/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 20184D SAS</section></footer></div></body></html>
