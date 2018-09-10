@@ -480,7 +480,7 @@ A boolean field, variable or expression can be either TRUE or FALSE.
 
 ### Boolean functions
 
-4D provides the Boolean functions **True**, **False**, and **Not** in the dedicated **Boolean** theme. For more information, see the descriptions of these commands
+4D provides the Boolean functions `True`, `False`, and `Not` in the dedicated **Boolean** theme. For more information, see the descriptions of these commands
 
 #### Example
 
@@ -542,9 +542,9 @@ The following is the truth table for the OR logical operator:
 ### Null
 Null is a special data type with only one possible value: **null**. This value is returned by an expression that does not contain any value.
 
-From the 4D database point of view, a null value expresses the fact that the data value is unknown. It does NOT mean that the value is blank, or empty ("" for a string, or 0 for a longint are blank values). In the 4D database, null values in fields (except for Object field attributes) are handled by the SQL engine only. A specific field option allows you to configure how the database should handle this value (**Map NULL values to blank values**) and you can set or read the null values using the **SET FIELD VALUE NULL** and **Is field value Null** commands.
+From the 4D database point of view, a null value expresses the fact that the data value is unknown. It does NOT mean that the value is blank, or empty ("" for a string, or 0 for a longint are blank values). In the 4D database, null values in fields (except for Object field attributes) are handled by the SQL engine only. A specific field option allows you to configure how the database should handle this value (`Map NULL values to blank values`) and you can set or read the null values using the `SET FIELD VALUE NULL` and `Is field value Null` commands.
 
-In the 4D language and for object field attributes, null values are managed through the **Null** function. This function can be used with the following expressions for setting or comparing the null value:
+In the 4D language and for object field attributes, null values are managed through the `Null` function. This function can be used with the following expressions for setting or comparing the null value:
 
 - object attributes
 - collection elements
@@ -552,11 +552,11 @@ In the 4D language and for object field attributes, null values are managed thro
 
 ### Undefined
 
-Undefined is not actually a data type. It denotes a variable that has not yet been defined. A function (a project method that returns a result) can return an undefined value if, within the method, the function result ($0) is assigned an undefined expression (an expression calculated with at least one undefined variable). A field cannot be undefined (the **Undefined** command always returns False for a field).
+Undefined is not actually a data type. It denotes a variable that has not yet been defined. A function (a project method that returns a result) can return an undefined value if, within the method, the function result ($0) is assigned an undefined expression (an expression calculated with at least one undefined variable). A field cannot be undefined (the `Undefined` command always returns False for a field).
 
 ### Examples 
 
-Here are the different results of the **Undefined** command as well as the **Null** command with object properties, depending on the context:
+Here are the different results of the `Undefined` command as well as the `Null` command with object properties, depending on the context:
 
 ```
 C_OBJECT(vEmp)
@@ -668,7 +668,7 @@ A Picture field, variable or expression can be any Windows or Macintosh picture.
 
 4D integrates native management of picture formats. This means that pictures will be displayed and stored in their original format, without any interpretation in 4D. The specific features of the different formats (shading, transparent areas, etc.) will be retained when they are copied and pasted, and will be displayed without alteration. This native support is valid for all pictures stored in 4D: library pictures, pictures pasted into forms in Design mode, pictures pasted into fields or variables in Application mode, etc.
 
-4D uses native APIs to encode and decode pictures (fields and variables) under both Windows and Mac OS. These implementations provide access to numerous native forms, including the RAW format, currently used by digital cameras. 
+4D uses native APIs to encode and decode pictures (fields and variables) under both Windows and macOS. These implementations provide access to numerous native forms, including the RAW format, currently used by digital cameras. 
 
 - Under Windows, 4D uses WIC (Windows Imaging Component). WIC natively supports the following formats: BMP, PNG, ICO (decoding only), JPEG, GIF, TIFF and WDP (Microsoft Windows Digital Photo).    It is possible to use additional formats such as JPEG-2000 by installing third-party WIC codecs.
 - Under macOS, 4D uses ImageIO. All the available ImageIO codecs are therefore natively supported for decoding (reading) as well as encoding (writing):
@@ -707,19 +707,19 @@ A Picture field, variable or expression can be any Windows or Macintosh picture.
 |com.ilm.openexr-image	|   
 |public.radiance|	    
 
-Under Windows as under macOS, the formats supported vary according to the operating system and the custom codecs that are installed on the machines. To find out which codecs are available, you must use the **PICTURE CODE LIST** command. 
+Under Windows as under macOS, the formats supported vary according to the operating system and the custom codecs that are installed on the machines. To find out which codecs are available, you must use the `PICTURE CODE LIST` command. 
 
-**Note:** WIC and ImageIO permit the use of metadata in pictures. Two commands, **SET PICTURE METADATA** and **GET PICTURE METADATA**, let you benefit from metadata in your developments.
+**Note:** WIC and ImageIO permit the use of metadata in pictures. Two commands, `SET PICTURE METADATA` and `GET PICTURE METADATA`, let you benefit from metadata in your developments.
 
 #### Picture Codec IDs
 
-Picture formats recognized by 4D are returned by the **PICTURE CODE LIST** command as picture Codec IDs. They can be returned in the following forms:
+Picture formats recognized by 4D are returned by the `PICTURE CODE LIST` command as picture Codec IDs. They can be returned in the following forms:
 
 - As an extension (for example “.gif”)
 - As a Mime type (for example “image/jpeg”)
 
 The form returned for each format will depend on the way the Codec is recorded at the operating system level.
-Most of the 4D picture management commands can receive a Codec ID as a parameter. It is therefore imperative to use the system ID returned by the **PICTURE CODE LIST** command.
+Most of the 4D picture management commands can receive a Codec ID as a parameter. It is therefore imperative to use the system ID returned by the `PICTURE CODE LIST` command.
 
 #### Unavailable picture format
 
@@ -743,8 +743,8 @@ For compatibility reasons, you can reactivate QuickTime in your application by m
 |---|---|---|---|
 |Horizontal concatenation	|Pict1 + Pict2	|Picture	|Add Pict2 to the right of Pict1
 |Vertical concatenation	|Pict1 / Pict2	|Picture	|Add Pict2 to the bottom of Pict1|
-|Exclusive superimposition	|Pict1 & Pict2	|Picture	|Superimposes Pict2 on top of Pict1 (Pict2 in foreground). Produces the same result as **COMBINE PICTURES**(pict3;pict1;Superimposition;pict2)
-|Inclusive superimposition	|Pict1 &#124; Pict2	|Picture	|Superimposes Pict2 on Pict1 and returns resulting mask if both pictures are the same size. Produces the same result as $equal:=**Equal pictures**(Pict1;Pict2;Pict3)|
+|Exclusive superimposition	|Pict1 & Pict2	|Picture	|Superimposes Pict2 on top of Pict1 (Pict2 in foreground). Produces the same result as `COMBINE PICTURES(pict3;pict1;Superimposition;pict2)`
+|Inclusive superimposition	|Pict1 &#124; Pict2	|Picture	|Superimposes Pict2 on Pict1 and returns resulting mask if both pictures are the same size. Produces the same result as `$equal:=Equal pictures(Pict1;Pict2;Pict3)`|
 Horizontal move	|Picture + Number	|Picture	|Move Picture horizontally Number pixels|
 Vertical move	|Picture / Number	|Picture	|Move Picture vertically Number pixels|
 Resizing	|Picture * Number	|Picture	|Resize Picture by Number ratio|
@@ -754,10 +754,10 @@ Vertical scaling	|Picture */ Number	|Picture	|Resize Picture vertically by Numbe
 **Notes :**  
 
 - In order to use the | operator, Pict1 and Pict2 must have exactly the same dimension. If both pictures are a different size, the operation Pict1 | Pict2 produces a blank picture.
-- The **COMBINE PICTURES** command can be used to superimpose pictures while keeping the characteristics of each source picture in the resulting picture.
+- The `COMBINE PICTURES` command can be used to superimpose pictures while keeping the characteristics of each source picture in the resulting picture.
 - The picture operators return vectorial pictures if the two source pictures are vectorial. Remember, however, that pictures printed by the display format On Background are printed bitmapped.
-- Additional operations can be performed on pictures using the **TRANSFORM PICTURE** command.
-- There is no comparison operators on pictures, however 4D proposes the **Equal picture** command to compare two pictures. 
+- Additional operations can be performed on pictures using the `TRANSFORM PICTURE` command.
+- There is no comparison operators on pictures, however 4D proposes the `Equal picture` command to compare two pictures. 
 - 4D lets you retrieve the local coordinates of the mouse in a picture field or variable in case of a click or a hovering, even if a scroll or zoom has been applied to the picture. This mechanism, similar to that of a picture map, can be used, for example, to handle scrollable button bars or the interface of cartography software.
 The coordinates are returned in the _MouseX_ and _MouseY_ **System Variables**. The coordinates are expressed in pixels with respect to the top left corner of the picture (0,0). If the mouse is outside of the picture coordinates system, -1 is returned in *MouseX* and _MouseY_. You can get the value of these variables as part of the **On Clicked**, **On Double Clicked**, **On Mouse up**, **On Mouse Enter**, or **On Mouse Move** form events.
 
@@ -856,8 +856,8 @@ Like the other field types that can retain a large amount of data (such as the P
 #### Displaying BLOBs
 
 A BLOB can retain any type of data, so it has no default representation on the screen. If you display a BLOB field or variable in a form, it will always appear blank, whatever its contents.
-BLOB fields  OutlineEditDeleteOrganizeSee the differencesAnchor
 
+#### BLOB fields
 You can use BLOB fields to store any kind of data, up to 2 GB. You cannot index a BLOB field, so you must use a formula in order to search records on values stored in a BLOB field.
 
 #### Parameter passing, Pointers and function results  
@@ -935,7 +935,7 @@ Variables, fields or expressions of the Object type can contain various types of
 
 **Warning:** Keep in mind that attribute names differentiate between upper and lower case.
 
-You manage Object type variables, fields or expressions using the commands available in the **Objects (Language)** theme or through the object notation (see **Using object notation**). Note that specific commands of the Queries theme such as **QUERY BY ATTRIBUTE**, **QUERY SELECTION BY ATTRIBUTE**, or **ORDER BY ATTRIBUTE** can be used to carry out processing on object fields. 
+You manage Object type variables, fields or expressions using the commands available in the **Objects (Language)** theme or through the object notation (see **Using object notation**). Note that specific commands of the Queries theme such as `QUERY BY ATTRIBUTE`, `QUERY SELECTION BY ATTRIBUTE`, or `ORDER BY ATTRIBUTE` can be used to carry out processing on object fields. 
 
 Each property value accessed through the object notation is considered an expression. When the object notation is enabled in your database (see below), you can use such values wherever 4D expressions are expected:
 
@@ -945,7 +945,7 @@ Each property value accessed through the object notation is considered an expres
 
 ### Initialization 
 
-Objects must have been initialized, for example using the **New object** command, otherwise trying to read or modify their properties will generate a syntax error.
+Objects must have been initialized, for example using the `New object` command, otherwise trying to read or modify their properties will generate a syntax error.
 
 Example:
 ```
@@ -1048,7 +1048,7 @@ When using the object notation, the **null** value is supported though the **Nul
  If(myColl[2]=Null)
 ```
 
-For more information, please refer to the **Null** command description.
+For more information, please refer to the `Null` command description.
 
 #### Undefined value
 
@@ -1111,7 +1111,7 @@ Evaluating an object property can sometimes produce an undefined value. Typicall
 
 - Assigning an undefined value to a non existing object property does nothing.
 
-When expressions of a given type are expected in your 4D code, you can make sure they have the correct type even when evaluated to undefined by surrounding them with the appropriate 4D cast command: **String**, **Num**, **Date**, **Time**, **Bool**. These commands return an empty value of the specified type when the expression evaluates to undefined. For example:
+When expressions of a given type are expected in your 4D code, you can make sure they have the correct type even when evaluated to undefined by surrounding them with the appropriate 4D cast command: `String`, `Num`, `Date`, `Time`, `Bool`. These commands return an empty value of the specified type when the expression evaluates to undefined. For example:
 
 ```
  $myString:=Lowercase(String($o.a.b)) //make sure you get a string value even if undefined
@@ -1225,8 +1225,8 @@ If you assign an element's index that surpasses the last existing element of the
 
 You can create two types of collections:
 
-- regular (non-shared) collections, using the **New collection** command. These collections support a large number of data types, including pictures and pointers. They can be edited without any specific access control.
-- shared collections, using the **New shared collection** command. These collections can be shared between processes, including preemptive threads. Access to these collections are controlled by **Use...End use** structures.   
+- regular (non-shared) collections, using the `New collection` command. These collections support a large number of data types, including pictures and pointers. They can be edited without any specific access control.
+- shared collections, using the `New shared collection` command. These collections can be shared between processes, including preemptive threads. Access to these collections are controlled by `Use...End use` structures.   
 
 ### Collection methods  
 

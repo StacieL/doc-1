@@ -25,7 +25,7 @@ const siteConfig = {
   tagline: 'Documentation for 4D Developers',
   url: 'https://arnaud4d.github.io' /* your website url */,
   //baseUrl: '/doc/' /* base url for your project */,
-  baseUrl: '/' /* base url for your project */,
+  baseUrl: '/doc/' /* base url for your project */,
 // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
@@ -80,7 +80,7 @@ const siteConfig = {
   copyright:
     'Copyright © ' +
     new Date().getFullYear() +
-    '4D SAS',
+    ' 4D SAS',
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks

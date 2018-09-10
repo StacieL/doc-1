@@ -34,7 +34,7 @@ You MUST distinguish the assignment operator := from the other operators. Rather
 
 ## Variables
 
-The 4D language is strongly typed, although some flexibility is allowed in many cases. You create a typed variable using a C_XXX command. For example, to create a variable of the date type, you can write:
+The 4D language is strongly typed, although some flexibility is allowed in many cases. You create a typed variable using a `C_XXX` command. For example, to create a variable of the date type, you can write:
 
 ```
 C_DATE(MyDate) //Date type for MyDate variable
@@ -46,11 +46,11 @@ Even if it is usually not recommended, you can create variables simply by using 
 MyOtherDate:=Current date+30
 ```
 
-The line of code reads “MyOtherDate gets the current date plus 30 days.” This line creates the variable, assigns it with both the (temporary) date type and a content. A variable created by assignment is interpreted as typeless, that is, it can be assigned with other types in other lines and then changes the type dynamically. A variable typed with C_XXX cannot change the type. In compiled mode, the type can never be changed, regardless of how the variable was created.
+The line of code reads “MyOtherDate gets the current date plus 30 days.” This line creates the variable, assigns it with both the (temporary) date type and a content. A variable created by assignment is interpreted as typeless, that is, it can be assigned with other types in other lines and then changes the type dynamically. A variable typed with `C_XXX` cannot change the type. In compiled mode, the type can never be changed, regardless of how the variable was created.
 
 ## Commands
 
-4D commands are built-in instructions to perform an action. All 4D commands, such as CREATE RECORD, or ALERT, are described in this manual, grouped by theme. Commands are often used with parameters, which are passed in brackets () and separated by semicolumns (;). Example:
+4D commands are built-in instructions to perform an action. All 4D commands, such as `CREATE RECORD`, or `ALERT`, are described in the _4D Language Reference_ manual, grouped by theme. Commands are often used with parameters, which are passed in brackets () and separated by semicolumns (;). Example:
 
 ```
 COPY DOCUMENT("folder1\\name1";"folder2\\" ; "new")
@@ -73,7 +73,7 @@ objectRef:=SVG_New_arc(svgRef;100;100;90;90;180)
 
 ## Constants
 
-4D proposes an extensed set of predefined constants, whose values are accessible by name. For example, Read Mode is a constant (value 2). Predefined constants appear underlined by default in the 4D Method editor. They allow writing more readable code.
+4D proposes an extensed set of predefined constants, whose values are accessible by name. For example, `Read Mode` is a constant (value 2). Predefined constants appear underlined by default in the 4D Method editor. They allow writing more readable code.
 
 ```
 vRef:=Open document("PassFile";"TEXT";Read Mode) // open doc in read only mode
@@ -140,7 +140,7 @@ Expressions rarely “stand alone.” There are only a few places in 4D where an
 - Query by Formula dialog box
 - Debugger where the value of expressions can be checked
 - Apply Formula dialog box
-- the EXECUTE FORMULA command
+- the `EXECUTE FORMULA` command
 - Quick Report editor as a formula for a column
 
 An expression can simply be a constant, such as the number 4 or the string “Hello.” As the name implies, a constant’s value never changes. It is when operators are introduced that expressions start to get interesting. In preceding sections you have already seen expressions that use operators. For example, 4 + 2 is an expression that uses the addition operator to add two numbers together and return the result 6.
@@ -222,7 +222,7 @@ For example, the following line is a statement that will display a confirmation 
 CONFIRM("Do you really want to close this account?";"Yes";"No")
 ```
 
-A method also contains tests and loops that control the flow of the execution. 4D methods support If...Else...End if and Case of...Else...End case branching structures as well as looping structures: While...End while, Repeat...Until, and For...End for:
+A method also contains tests and loops that control the flow of the execution. 4D methods support `If...Else...End if` and `Case of...Else...End case` branching structures as well as looping structures: `While...End while`, `Repeat...Until`, `For...End for`, and `For each...End for each`:
 
 The following example goes through all the characters of the text vtSomeText:
 

@@ -97,13 +97,13 @@ You reference the elements in an array by using curly braces ({…}). A number i
     ALERT("The element #"+String($vlElem)+" is equal to: "+atNames{$vlElem})
  End for
 ```
-Note the syntax atNames{$vlElem}. Rather than specifying a numeric literal such as atNames{3}, you can use a numeric variable to indicate which element of an array you are addressing. Using the iteration provided by a loop structure (**For...End for**, **Repeat...Until** or **While...End while**), compact pieces of code can address all or part of the elements in an array.
+Note the syntax atNames{$vlElem}. Rather than specifying a numeric literal such as atNames{3}, you can use a numeric variable to indicate which element of an array you are addressing. Using the iteration provided by a loop structure (`For...End for`, `Repeat...Until` or `While...End while`), compact pieces of code can address all or part of the elements in an array.
 
 **Important:** Be careful not to confuse the assignment operator (:=) with the comparison operator, equal (=). Assignment and comparison are very different operations. 
 
 
 #### Assigning an array to another array 
-Unlike text or string variables, you cannot assign one array to another. To copy (assign) an array to another one, use **COPY ARRAY**.
+Unlike text or string variables, you cannot assign one array to another. To copy (assign) an array to another one, use `COPY ARRAY`.
 
 
 ## Local, Process, and Interprocess
@@ -145,7 +145,7 @@ A process variable does not have a prefix before its name. A process variable na
 
 In interpreted mode, variables are maintained dynamically; they are created and erased from memory “on the fly.” In compiled mode, all processes you create (user processes) share the same definition of process variables, but each process has a different instance for each variable. For example, the variable myVar is one variable in the process P_1 and another one in the process P_2.
 
-A process can “peek and poke” process variables from another process using the commands **GET PROCESS VARIABLE** and **SET PROCESS VARIABLE**. It is good programming practice to restrict the use of these commands to the situation for which they were added to 4D:
+A process can “peek and poke” process variables from another process using the commands `GET PROCESS VARIABLE` and `SET PROCESS VARIABLE`. It is good programming practice to restrict the use of these commands to the situation for which they were added to 4D:
 
 - Interprocess communication at specific places or your code
 - Handling of interprocess drag and drop
@@ -181,7 +181,7 @@ In order for this principle to work in compiled mode, it is imperative that dyna
 
 - You can set the type using the "Variable Type" menu of the Property list.
 **Note:** When the variable is named, the "Variable Type" menu does not actually type the variable but simply allows the options of the Property list to be updated (except for picture variables). In order to type a named variable, it is necessary to use the commands of the Compiler theme.
-- You can use a specific initialization code when the form is loaded that uses, for example, the **VARIABLE TO VARIABLE** command:
+- You can use a specific initialization code when the form is loaded that uses, for example, the `VARIABLE TO VARIABLE` command:
 
 ```
      If(Form event=On Load)
@@ -192,7 +192,7 @@ In order for this principle to work in compiled mode, it is imperative that dyna
      End if
 ```
 
-**Note:** If you specify a dynamic variable, select the value **Non**e in the "Variable Type" menu, and do not use initialization code, a typing error will be returned by the compiler.
+**Note:** If you specify a dynamic variable, select the value **None** in the "Variable Type" menu, and do not use initialization code, a typing error will be returned by the compiler.
 
 In the 4D code, dynamic variables can be accessed using a pointer obtained with the command. For example:
 
@@ -214,8 +214,6 @@ There are two advantages with this mechanism:
 ### Using the element zero of an array 
 
 An array always has an element zero. While element zero is not shown when an array supports a form object, there is no restriction(*) in using it with the language.
-
-One example of the use of element zero is the case of the combo box discussed in the **CLOSE DOCUMENT** section.
 
 Here is another example: you want to execute an action only when you click on an element other than the previously selected element. To do this, you must keep track of each selected element. One way to do this is to use a process variable in which you maintain the element number of the selected element. Another way is to use the element zero of the array:
 
