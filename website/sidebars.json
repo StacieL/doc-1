@@ -1,0 +1,9 @@
+{
+  "docs": {
+    "The 4D Language": ["Concepts/doc1","Concepts/quick-tour","Concepts/data-types","Concepts/variables-arrays","Concepts/constants"],
+    "Language Reference": ["doc3"]
+  },
+  "docs-other": {
+    "First Category": ["doc4", "doc5"]
+  }
+}
