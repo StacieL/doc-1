@@ -1193,7 +1193,9 @@ To manage Collection type variables you must use object notation (see **Using ob
 
 To access a collection element, you need to pass the element number inside square brackets:
 
-> collectionRef[expression]
+```
+collectionRef[expression]
+```
 
 You can pass any valid 4D expression which returns a positive integer in expression. Examples:
 
@@ -1230,7 +1232,7 @@ You can create two types of collections:
 
 ### Collection methods  
 
-4D collection references benefit from special methods (sometimes named _member functions_). Thanks to object notation, these methods can be applied to collection references using the following syntax:
+4D collection references benefit from special methods (sometimes named *member functions*). Thanks to object notation, these methods can be applied to collection references using the following syntax:
 
 > {$result:=}myCollection.memberFunction( {params} )
 
@@ -1260,7 +1262,7 @@ Some methods return the original collection after modification, so that you can 
 #### propertyPath parameter 
 
 
-Several member functions accept a _propertyPath_ as parameter. This parameter stands for:
+Several methods accept a _propertyPath_ as parameter. This parameter stands for:
 
 - either an object property name, for example "lastName"
 - or an object property path, i.e. a hierarchical sequence of sub-properties linked with dot characters, for example "employee.children.firstName".
@@ -1317,6 +1319,6 @@ The following table lists the basic data types, the data types to which they can
 |Collection|JSON Stringify||||
 
 (1) Strings formatted in JSON can be converted into scalar data, objects, or collections, using the JSON Parse command.
-(2) Time values can be be treated as numbers.
+(2) Time values can be treated as numbers.
 
 **Note:** In addition to the data conversions listed in this table, more sophisticated data conversions can be obtained by combining operators and other commands.

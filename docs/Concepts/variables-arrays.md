@@ -7,7 +7,8 @@ Data in 4D is stored in two fundamentally different ways. **Fields** store data 
 
 When you set up your 4D database, you specify the names and types of fields that you want to use. Variables or arrays are much the same—you also give them names and different types (see [Data types](Concepts/data-types.md)).
 
-Variables and arrays are very similar language elements. A **variable** stores single data. An **array** is an ordered series of **variables** of the same type. Each variable is called an **element** of the array. An array is given its size when it is created; you can then resize it as many times as needed by adding, inserting, or deleting elements, or by resizing the array using the same command used to create it. Array elements are numbered from 1 to N, where N is the size of the array. An array always has an element zero that you can access just like any other element of the array, but this element is not shown when an array is present in a form. Although the element zero is not shown when an array supports a form object, there is no restriction in using it with the language. Arrays are 4D variables. Like any variable, an array has a scope and follows the rules of the 4D language, though with some unique differences. 
+Variables and arrays are very similar language elements. A **variable** stores single data. An **array** is an ordered series of **variables** of the same type. Each variable is called an **element** of the array. An array is given its size when it is created; you can then resize it as many times as needed by adding, inserting, or deleting elements, or by resizing the array using the same command used to create it. Array elements are numbered from 1 to N, where N is the size of the array. An array always has a special [element zero](using-the-element-zero-of-an-array). Arrays are 4D variables. Like any variable, an array has a scope and follows the rules of the 4D language, though with some unique differences. 
+> In most cases, it is recommended to use **collections** instead of **arrays**. Collections are more flexible and provide a wide range of dedicated methods. For more information, please refer to the XXX section.
 
 Variables and arrays are language objects; you can create and use variable and arrays that will never appear on the screen. 
 
@@ -44,7 +45,7 @@ The following are some basic variable declarations:
 
 ## Creating Arrays 
 
-You create an array with one of the array declaration commands from the "Array" theme. Each array declaration command can create or resize one-dimensional or two-dimensional arrays. For more information about two-dimensional arrays, see the XXX section.
+You create an array with one of the array declaration commands from the "Array" theme. Each array declaration command can create or resize one-dimensional or two-dimensional arrays. For more information about two-dimensional arrays, see the [two dimensional arrays](#two-dimensional-arrays) section.
 
 The following line of code creates (declares) an Integer array of 10 elements:
 
@@ -377,13 +378,3 @@ The _ERROR HANDLING_ project method is listed here:
   ` ERROR HANDLING project method
  gError:=Error ` Just return the error code
 ```
-
-
-## System Variables
-
-4D maintains a number of variables called **system variables**. These variables let you monitor many operations. System variables are all process variables, accessible only from within a process.
-
-The most important system variable is the OK system variable. As its name implies, it tells you if everything is OK in the particular process. Was the record saved? Has the importing operation been completed? Did the user click the OK button? The OK system variable is set to 1 when a task is completed successfully, and to 0 when it is not.
-
-For more information about system variables, see the section **System Variables**.
-

@@ -159,7 +159,7 @@ const Description = props => (
   <Block background="white" layout="twoColumn">
     {[
       {
-        content: '[4D Language, the Concepts](docs/Concepts/doc1.html)',
+        content: '[The 4D Language (main concepts)](docs/Concepts/doc1.html)',
         //image: imgUrl('4dlogo.png'),
         //imageAlign: 'right',
         title: 'Manuals',

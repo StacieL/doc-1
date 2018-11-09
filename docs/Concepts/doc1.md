@@ -4,6 +4,8 @@ title: About the 4D Language
 sidebar_label: About the 4D Language
 ---
 
+>**THE WHOLE PAGE WILL BE REWRITTEN**
+
 The 4D built-in language, consisting of more than 1300 commands, makes 4D a powerful development tool for database applications on desktop computers. You can use the 4D language for many different tasks—from performing simple calculations to creating complex custom user interfaces. For example, you can:
 
 - Programmatically access any of the record management editors (order by, query, and so on),
@@ -43,7 +45,7 @@ The 4D language lets you take complete control of your data in a powerful and el
 
 The commands in the 4D language provide access to the standard record management editors. For example, when you use the command, you are presented with the Query Editor (which can be accessed in the Design mode using the Query command in the Records menu. You can tell the command to search for explicitly described data. For example, ([People];[People]Last Name="Smith") will find all the people named Smith in your database.
 
-The 4D language is very powerful—one command often replaces hundreds or even thousands of lines of code written in traditional computer languages. Surprisingly enough, with this power comes simplicity—commands have plain English names. For example, to perform a query, you use the command; to add a new record, you use the command.
+The 4D language is very powerful—one command often replaces hundreds or even thousands of lines of code written in traditional computer languages. Surprisingly enough, with this power comes simplicity—commands have plain English names. For example, to perform a query, you use the `QUERY` command; to add a new record, you use the `ADD RECORD` command.
 
 The language is designed for you to easily accomplish almost any task. Adding a record, sorting records, searching for data, and similar operations are specified with simple and direct commands. But the language can also control the serial ports, read disk documents, control sophisticated transaction processing, and much more.
 
@@ -64,7 +66,7 @@ Traditional languages are often rigid and inflexible, requiring commands to be e
 
 ## What is ORDA?
 
-ORDA stands for **Object Relational Data Access**. It is an enhanced technology allowing to use a database as an object – by the language or with user interface widgets. Relations are transparently included in the concept, in combination with lazy loading, removing all the typical hassle of data selection or transfer from the developer.
+ORDA stands for **Object Relational Data Access**. It is an enhanced technology allowing to use a database as an object – by the language or with user interface widgets. Relations are transparently included in the concept, in combination with _lazy loading_, removing all the typical hassle of data selection or transfer from the developer.
 
 With ORDA, data is accessed through an abstraction layer, the datastore. A datastore is an object that provides an interface to the database model and data through 4D objects. Tables are mapped to dataclass objects, fields and relations are attributes of dataclasses, and records are entities.
 

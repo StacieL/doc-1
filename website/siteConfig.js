@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'Doc center 2018' /* title for your website */,
+  title: 'Doc center' /* title for your website */,
   tagline: 'Documentation for 4D Developers',
   url: 'https://arnaud4d.github.io' /* your website url */,
   //baseUrl: '/doc/' /* base url for your project */,

@@ -1,6 +1,8 @@
 {
   "docs": {
-    "The 4D Language": ["Concepts/doc1","Concepts/quick-tour","Concepts/data-types","Concepts/variables-arrays","Concepts/constants"],
+    "The 4D Language": ["Concepts/doc1","Concepts/quick-tour","Concepts/data-types","Concepts/variables-arrays","Concepts/system-variables",
+	"Concepts/control-flow","Concepts/methods","Concepts/parameters","Concepts/error-handling","Concepts/interpreted-compiled",
+	"Concepts/components","Concepts/plug-ins","Concepts/identifiers"],
     "Language Reference": ["doc3"]
   },
   "docs-other": {
